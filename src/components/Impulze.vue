@@ -27,7 +27,7 @@ const props = defineProps<{
     </div>
     <div class="impulze-card__actions">
       <Button variant="primary">Activate</Button>
-      <Button variant="alert">Remove</Button>
+      <Button variant="alert" size="small">Remove</Button>
     </div>
   </article>
 </template>
@@ -61,6 +61,8 @@ const props = defineProps<{
 
 .impulze-card__actions {
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: $spacing-2;
 }
 </style>
