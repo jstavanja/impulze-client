@@ -24,10 +24,12 @@ const { data: impulzes } = useSWRV<Impulze[]>('http://localhost:8080/impulzes')
 
 <style lang="scss">
 @import './styles/_variables.scss';
+@import './styles/reset.scss';
 
 body,
 HTML {
   font-family: 'Poppins', sans-serif;
   color: $black;
+  font-size: 14px;
 }
 </style>
