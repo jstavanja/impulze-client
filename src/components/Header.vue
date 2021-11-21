@@ -5,22 +5,27 @@ const currentlyLoggedInUser = 'Jaka' // TODO: useUser
 
 <template>
   <header>
-    <div class="header__brand">
-      <span class="header__brand-name">Impulze</span>
+    <div class="header__wrapper">
+      <div class="header__brand">
+        <span class="header__brand-name">Impulze</span>
 
-      <Button>Add an Impulze</Button>
-    </div>
+        <Button>Add an Impulze</Button>
+      </div>
 
-    <div class="header__actions">
-      <div>Welcome back, {{ currentlyLoggedInUser }}!</div>
-      <Button variant="secondary">Log out</Button>
+      <div class="header__actions">
+        <div>Welcome back, {{ currentlyLoggedInUser }}!</div>
+        <Button variant="secondary">Log out</Button>
+      </div>
     </div>
   </header>
 </template>
 
 <style lang="scss" scoped>
 @import '../styles/variables';
-header {
+@import '../styles/mixins';
+
+.header__wrapper {
+  @include limit-max-width;
   display: flex;
   justify-content: space-between;
   padding: $spacing-2;

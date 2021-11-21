@@ -22,6 +22,5 @@ const props = defineProps<{
   display: grid;
   grid-template-columns: 1fr;
   gap: $spacing-2;
-  margin: $spacing-2;
 }
 </style>

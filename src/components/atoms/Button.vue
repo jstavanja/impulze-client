@@ -68,6 +68,10 @@ const emitClick = () => {
   background-color: $primary-500;
 }
 
+.button--secondary {
+  color: $black;
+}
+
 .button--alert {
   background-color: $red-500;
 }

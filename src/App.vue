@@ -13,8 +13,7 @@ const { data: impulzes } = useSWRV<Impulze[]>('http://localhost:8080/impulzes')
 
 <template>
   <Header />
-  <main>
-    <h1>Impulzes</h1>
+  <main class="app-content">
     <ActiveImpulzeList :active-impulzes="impulzes" v-if="impulzes" />
     <ActionBar />
     <ImpulzeList :impulzes="impulzes" v-if="impulzes" />
@@ -24,6 +23,7 @@ const { data: impulzes } = useSWRV<Impulze[]>('http://localhost:8080/impulzes')
 
 <style lang="scss">
 @import './styles/_variables.scss';
+@import './styles/mixins.scss';
 @import './styles/reset.scss';
 
 body,
@@ -31,5 +31,10 @@ HTML {
   font-family: 'Poppins', sans-serif;
   color: $black;
   font-size: 14px;
+}
+
+.app-content {
+  @include limit-max-width;
+  padding: $spacing-2;
 }
 </style>
