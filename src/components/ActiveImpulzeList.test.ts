@@ -14,8 +14,8 @@ const impulzeList = [
   },
 ]
 
-describe('ImpulzeList', () => {
-  it('should display all provided impulzes in the list', () => {
+describe('ActiveImpulzeList', () => {
+  it('should display all provided impulze names in the list', () => {
     const { getByText } = render(ActiveImpulzeList, {
       props: {
         activeImpulzes: impulzeList,
