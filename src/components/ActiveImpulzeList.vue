@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { defineProps } from 'vue'
 import { Impulze } from '../types/Impulze'
 
-const { activeImpulzes } = defineProps<{
+const props = defineProps<{
   activeImpulzes: Impulze[] | undefined
 }>()
 </script>
@@ -10,7 +11,10 @@ const { activeImpulzes } = defineProps<{
   <div>
     Currently active impulzes
     <ul>
-      <li v-for="activeImpulze in activeImpulzes">
+      <li
+        v-for="activeImpulze in props.activeImpulzes"
+        :key="activeImpulze.description"
+      >
         <span>
           {{ activeImpulze.name }}
         </span>

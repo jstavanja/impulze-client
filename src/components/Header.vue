@@ -7,10 +7,14 @@ const currentlyLoggedInUser = 'Jaka' // TODO: useUser
     <div>
       <span>Impulze</span>
 
-      <button type="button">Add an Impulze</button>
+      <button type="button">
+        Add an Impulze
+      </button>
     </div>
 
     <div>Welcome back, {{ currentlyLoggedInUser }}!</div>
-    <button type="button">Log out</button>
+    <button type="button">
+      Log out
+    </button>
   </header>
 </template>

@@ -1,4 +1,5 @@
-import { render } from '@testing-library/vue'
+import { render, SelectorMatcherOptions } from '@testing-library/vue'
+import { Matcher } from '@testing-library/dom'
 import { Impulze } from '../types/Impulze'
 import { convertMillisecondsToSeconds } from '../utils/time'
 import ImpulzeList from './ImpulzeList.vue'
@@ -16,8 +17,14 @@ const impulzeList = [
   },
 ]
 
+type GetByTextFunction = (
+  text: Matcher,
+  options?: SelectorMatcherOptions | undefined,
+  waitForElementOptions?: unknown
+) => HTMLElement
+
 const assertImpulzeInfoIsPresent = (
-  getByTextSelector: Function,
+  getByTextSelector: GetByTextFunction,
   impulzeInfo: Impulze
 ) => {
   getByTextSelector(impulzeInfo.name)

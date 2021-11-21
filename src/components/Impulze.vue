@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { defineProps } from 'vue'
 import { Impulze } from '../types/Impulze'
 import Button from './atoms/Button.vue'
-const { impulze } = defineProps<{
+const props = defineProps<{
   impulze: Impulze
 }>()
 </script>
@@ -9,15 +10,19 @@ const { impulze } = defineProps<{
 <template>
   <article class="impulze-card">
     <div class="impulze-card__content">
-      <h3 class="impulze-card__title">{{ impulze.name }}</h3>
-      <p class="impulze-card__description">{{ impulze.description }}</p>
+      <h3 class="impulze-card__title">
+        {{ props.impulze.name }}
+      </h3>
+      <p class="impulze-card__description">
+        {{ props.impulze.description }}
+      </p>
       <div>
-        <span
-          >Period:
-          <span class="impulze-card__period-value"
-            >{{ impulze.period / 1000 }} s</span
-          ></span
-        >
+        <span>
+          Period:
+          <span class="impulze-card__period-value">
+            {{ props.impulze.period / 1000 }} s
+          </span>
+        </span>
       </div>
     </div>
     <div class="impulze-card__actions">

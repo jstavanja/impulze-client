@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { computed } from '@vue/reactivity'
+import { computed } from 'vue'
 
 interface Props {
   variant?: 'primary' | 'secondary' | 'alert' | 'success' | 'warning'
 }
 
-const { variant } = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   variant: 'primary',
 })
 
-const isPrimary = computed(() => variant === 'primary')
-const isSecondary = computed(() => variant === 'secondary')
-const isAlert = computed(() => variant === 'alert')
-const isSuccess = computed(() => variant === 'success')
-const isWarning = computed(() => variant === 'warning')
+const isPrimary = computed(() => props.variant === 'primary')
+const isSecondary = computed(() => props.variant === 'secondary')
+const isAlert = computed(() => props.variant === 'alert')
+const isSuccess = computed(() => props.variant === 'success')
+const isWarning = computed(() => props.variant === 'warning')
 
 const emit = defineEmits(['click'])
 
@@ -25,7 +25,6 @@ const emitClick = () => {
 <template>
   <button
     type="button"
-    @click="emitClick"
     class="button"
     :class="{
       'button--primary': isPrimary,
@@ -34,6 +33,7 @@ const emitClick = () => {
       'button--success': isSuccess,
       'button--warning': isWarning,
     }"
+    @click="emitClick"
   >
     <slot />
   </button>

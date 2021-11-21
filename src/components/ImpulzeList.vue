@@ -1,15 +1,16 @@
 <script setup lang="ts">
+import { defineProps } from 'vue'
 import { Impulze } from '../types/Impulze'
 import ImpulzeComponent from './Impulze.vue'
 
-const { impulzes } = defineProps<{
+const props = defineProps<{
   impulzes: Impulze[] | undefined
 }>()
 </script>
 
 <template>
   <ul class="impulze-list">
-    <li v-for="impulze in impulzes">
+    <li v-for="impulze in props.impulzes" :key="impulze.description">
       <ImpulzeComponent :impulze="impulze" />
     </li>
   </ul>

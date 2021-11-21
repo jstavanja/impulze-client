@@ -6,8 +6,8 @@ describe('Button', () => {
     const msg = 'Hello Vue 3'
     const { getByText } = render(Button, {
       slots: {
-        default: msg,
-      },
+        default: msg
+      }
     })
 
     getByText(msg)
@@ -17,8 +17,8 @@ describe('Button', () => {
     const msg = 'click me'
     const { getByText, emitted } = render(Button, {
       slots: {
-        default: msg,
-      },
+        default: msg
+      }
     })
 
     const button = getByText(msg)
