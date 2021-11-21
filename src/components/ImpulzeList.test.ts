@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/vue'
+import { render } from '@testing-library/vue'
 import { Impulze } from '../types/Impulze'
 import { convertMillisecondsToSeconds } from '../utils/time'
 import ImpulzeList from './ImpulzeList.vue'
