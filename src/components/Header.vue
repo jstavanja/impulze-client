@@ -34,13 +34,12 @@ const currentlyLoggedInUser = 'Jaka' // TODO: useUser
 .header__brand-name {
   font-size: $font-size-xl;
   font-weight: bold;
-  margin: 0 $spacing-4;
+  margin-right: $spacing-4;
 }
 
 .header__actions {
   display: flex;
   align-items: center;
   gap: $spacing-2;
-  margin-right: $spacing-2;
 }
 </style>
