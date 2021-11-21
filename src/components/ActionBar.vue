@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Button from './atoms/Button.vue'
+
 const startAllImpulzes = () => {
   console.log('starting all impulzes')
 }
@@ -10,11 +12,21 @@ const stopAllImpulzes = () => {
 
 <template>
   <div class="actions">
-    <button type="button" @click="startAllImpulzes">
+    <Button variant="primary" @click="startAllImpulzes">
       Start all impulzes
-    </button>
-    <button type="button" @click="stopAllImpulzes">
+    </Button>
+    <Button variant="secondary" @click="stopAllImpulzes">
       Stop all impulzes
-    </button>
+    </Button>
   </div>
 </template>
+
+<style lang="scss">
+@import '../styles/variables';
+
+.actions {
+  display: flex;
+  gap: $spacing-2;
+  margin-bottom: $spacing-8;
+}
+</style>

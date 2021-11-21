@@ -33,7 +33,7 @@ const props = defineProps<{
   background-color: $gray-50;
   border: none;
   border-radius: $border-radius;
-  margin-bottom: $spacing-2;
+  margin: $spacing-8 0;
 }
 
 .active-impulze-list__title {
