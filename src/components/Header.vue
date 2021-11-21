@@ -1,20 +1,41 @@
 <script setup lang="ts">
+import Button from './atoms/Button.vue'
 const currentlyLoggedInUser = 'Jaka' // TODO: useUser
 </script>
 
 <template>
   <header>
-    <div>
-      <span>Impulze</span>
+    <div class="header__brand">
+      <span class="header__brand-name">Impulze</span>
 
-      <button type="button">
-        Add an Impulze
-      </button>
+      <Button>Add an Impulze</Button>
     </div>
 
-    <div>Welcome back, {{ currentlyLoggedInUser }}!</div>
-    <button type="button">
-      Log out
-    </button>
+    <div class="header__actions">
+      <div>Welcome back, {{ currentlyLoggedInUser }}!</div>
+      <Button variant="secondary">Log out</Button>
+    </div>
   </header>
 </template>
+
+<style lang="scss" scoped>
+@import '../styles/variables';
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: $spacing-2;
+}
+
+.header__brand-name {
+  font-size: $font-size-xl;
+  font-weight: bold;
+  margin: 0 $spacing-4;
+}
+
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  margin-right: $spacing-2;
+}
+</style>
