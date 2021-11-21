@@ -22,4 +22,12 @@ const { data: impulzes } = useSWRV<Impulze[]>('http://localhost:8080/impulzes')
   <ImpulzeModal />
 </template>
 
-<style></style>
+<style lang="scss">
+@import './styles/_variables.scss';
+
+body,
+HTML {
+  font-family: 'Poppins', sans-serif;
+  color: $black;
+}
+</style>
