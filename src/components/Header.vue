@@ -1,6 +1,14 @@
 <script setup lang="ts">
+import { useModalStore } from '../stores/modals'
+import { Modal } from '../types/Modal'
 import Button from './atoms/Button.vue'
 const currentlyLoggedInUser = 'Jaka' // TODO: useUser
+
+const modalStore = useModalStore()
+
+const openAddImpulzeModal = () => {
+  modalStore.openModal(Modal.AddImpulze)
+}
 </script>
 
 <template>
@@ -9,7 +17,7 @@ const currentlyLoggedInUser = 'Jaka' // TODO: useUser
       <div class="header__brand">
         <span class="header__brand-name">Impulze</span>
 
-        <Button>Add an Impulze</Button>
+        <Button @click="openAddImpulzeModal">Add an Impulze</Button>
       </div>
 
       <div class="header__actions">

@@ -1,0 +1,9 @@
+@import './mixins.scss';
+
+$indices-configuration: (
+  'header': $ALL_SCREENS,
+  '.modal-overlay': $ALL_SCREENS,
+  '.modal': $ALL_SCREENS,
+);
+
+@include generate-indices($indices-configuration);

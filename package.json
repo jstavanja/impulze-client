@@ -13,12 +13,14 @@
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "@vue/eslint-config-typescript": "^9.1.0",
+    "pinia": "^2.0.4",
     "swrv": "^1.0.0-beta.8",
     "vue": "^3.2.16"
   },
   "devDependencies": {
     "@babel/core": "^7.14.5",
     "@babel/preset-env": "^7.14.7",
+    "@pinia/testing": "0.0.6",
     "@testing-library/vue": "^6.4.2",
     "@types/jest": "^27.0.3",
     "@vitejs/plugin-vue": "^1.9.3",

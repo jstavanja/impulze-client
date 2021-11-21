@@ -2,3 +2,26 @@
   max-width: 1200px;
   margin: 0 auto;
 }
+
+$ALL_SCREENS: 'all';
+$FROM_TABLET: 'from-tablet';
+
+@mixin generate-indices($indices-configuration) {
+  $priority: 1;
+
+  @each $selector, $viewport in $indices-configuration {
+    #{$selector} {
+      @if $viewport == $ALL_SCREENS {
+        z-index: $priority;
+      }
+
+      @if $viewport == $FROM_TABLET {
+        @media screen and (min-width: 768px) {
+          z-index: $priority;
+        }
+      }
+    }
+
+    $priority: $priority + 1;
+  }
+}

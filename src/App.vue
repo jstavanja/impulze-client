@@ -25,6 +25,7 @@ const { data: impulzes } = useSWRV<Impulze[]>('http://localhost:8080/impulzes')
 @import './styles/_variables.scss';
 @import './styles/mixins.scss';
 @import './styles/reset.scss';
+@import './styles/z-indices.scss';
 
 body,
 HTML {
