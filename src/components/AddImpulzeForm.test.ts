@@ -40,8 +40,6 @@ describe('Add impulze form', () => {
 
     expect(wrapper.emitted().submit).toBeTruthy()
 
-    // TODO: figure out why this doesn't emit the payload anymore
-
     const eventPayload = wrapper.emitted().submit[0] as unknown[]
     expect(eventPayload.length).toBe(1)
     expect(eventPayload[0]).toStrictEqual({
