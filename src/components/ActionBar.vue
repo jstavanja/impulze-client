@@ -1,12 +1,20 @@
 <script setup lang="ts">
+import { useImpulzeStore } from '../stores/impulze'
+import { Impulze } from '../types/Impulze'
 import Button from './atoms/Button.vue'
 
+const props = defineProps<{
+  impulzes: Impulze[]
+}>()
+
+const impulzeStore = useImpulzeStore()
+
 const startAllImpulzes = () => {
-  console.log('starting all impulzes')
+  impulzeStore.activateImpulzes(props.impulzes)
 }
 
 const stopAllImpulzes = () => {
-  console.log('stopping all impulzes')
+  impulzeStore.deactivateAllImpulzes()
 }
 </script>
 

@@ -1,10 +1,30 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import { defineProps, computed } from 'vue'
+import { useImpulzeStore } from '../stores/impulze'
 import { Impulze } from '../types/Impulze'
 import Button from './atoms/Button.vue'
+
 const props = defineProps<{
   impulze: Impulze
 }>()
+
+const impulzeStore = useImpulzeStore()
+
+const impulzeIsActive = computed(() =>
+  impulzeStore.impulzeIsActive(props.impulze)
+)
+
+const activateImpulze = () => {
+  impulzeStore.activateImpulze(props.impulze)
+}
+
+const deactivateImpulze = () => {
+  impulzeStore.deactivateImpulze(props.impulze)
+}
+
+const deleteImpulze = () => {
+  console.log('Not implemented: delete impulze')
+}
 </script>
 
 <template>
@@ -26,8 +46,20 @@ const props = defineProps<{
       </div>
     </div>
     <div class="impulze-card__actions">
-      <Button variant="primary">Activate</Button>
-      <Button variant="alert" size="small">Remove</Button>
+      <Button
+        variant="primary"
+        @click="activateImpulze"
+        v-if="!impulzeIsActive"
+        custom-class="impulze-card__activate-action"
+      >
+        Activate
+      </Button>
+      <Button variant="secondary" @click="deactivateImpulze" v-else>
+        Deactivate
+      </Button>
+      <Button variant="alert" size="small" @click="deleteImpulze">
+        Remove
+      </Button>
     </div>
   </article>
 </template>

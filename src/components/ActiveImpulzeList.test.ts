@@ -1,4 +1,6 @@
+import { createTestingPinia, TestingPinia } from '@pinia/testing'
 import { render } from '@testing-library/vue'
+import { useImpulzeStore } from '../stores/impulze'
 import ActiveImpulzeList from './ActiveImpulzeList.vue'
 
 const impulzeList = [
@@ -14,9 +16,21 @@ const impulzeList = [
   },
 ]
 
+let testingPinia: TestingPinia
+
 describe('ActiveImpulzeList', () => {
+  beforeEach(() => {
+    testingPinia = createTestingPinia()
+  })
+
   it('should display all provided impulze names in the list', () => {
+    const impulzeStore = useImpulzeStore()
+    impulzeStore.activateImpulzes(impulzeList)
+
     const { getByText } = render(ActiveImpulzeList, {
+      global: {
+        plugins: [testingPinia]
+      },
       props: {
         activeImpulzes: impulzeList,
       },

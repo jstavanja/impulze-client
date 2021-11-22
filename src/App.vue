@@ -15,7 +15,7 @@ const { data: impulzes } = useSWRV<Impulze[]>('http://localhost:8080/impulzes')
   <Header />
   <main class="app-content">
     <ActiveImpulzeList :active-impulzes="impulzes" v-if="impulzes" />
-    <ActionBar />
+    <ActionBar :impulzes="impulzes" v-if="impulzes" />
     <ImpulzeList :impulzes="impulzes" v-if="impulzes" />
   </main>
   <ImpulzeModal />

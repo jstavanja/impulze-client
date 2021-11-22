@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
-import { Impulze } from '../types/Impulze'
+import { computed } from 'vue'
+import { useImpulzeStore } from '../stores/impulze'
 import Pill from './atoms/Pill.vue'
 
-const props = defineProps<{
-  activeImpulzes: Impulze[] | undefined
-}>()
+const impulzeStore = useImpulzeStore()
+
+const activeImpulzes = computed(() => impulzeStore.activeImpulzes)
 </script>
 
 <template>
@@ -14,7 +14,7 @@ const props = defineProps<{
     <ul class="active-impulze-list__unordered-list">
       <li
         class="active-impulze-list__item"
-        v-for="activeImpulze in props.activeImpulzes"
+        v-for="activeImpulze in activeImpulzes"
         :key="activeImpulze.description"
       >
         <Pill variant="primary">

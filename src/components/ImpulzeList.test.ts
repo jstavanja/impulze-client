@@ -3,6 +3,7 @@ import { Matcher } from '@testing-library/dom'
 import { Impulze } from '../types/Impulze'
 import { convertMillisecondsToSeconds } from '../utils/time'
 import ImpulzeList from './ImpulzeList.vue'
+import { createTestingPinia, TestingPinia } from '@pinia/testing'
 
 const impulzeList = [
   {
@@ -32,9 +33,18 @@ const assertImpulzeInfoIsPresent = (
   getByTextSelector(`${convertMillisecondsToSeconds(impulzeInfo.period)} s`)
 }
 
+let testingPinia: TestingPinia
+
 describe('ImpulzeList', () => {
+  beforeEach(() => {
+    testingPinia = createTestingPinia()
+  })
+
   it('should display all provided impulzes in the list', () => {
     const { getByText } = render(ImpulzeList, {
+      global: {
+        plugins: [testingPinia],
+      },
       props: {
         impulzes: impulzeList,
       },

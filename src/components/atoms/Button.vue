@@ -4,11 +4,13 @@ import { computed } from 'vue'
 interface Props {
   variant?: 'primary' | 'secondary' | 'alert' | 'success' | 'warning'
   size?: 'small' | 'normal'
+  customClass?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   variant: 'primary',
   size: 'normal',
+  customClass: '',
 })
 
 const isPrimary = computed(() => props.variant === 'primary')
@@ -38,6 +40,7 @@ const emitClick = () => {
       'button--warning': isWarning,
 
       'button--small': isSmall,
+      [customClass]: true,
     }"
     @click="emitClick"
   >
