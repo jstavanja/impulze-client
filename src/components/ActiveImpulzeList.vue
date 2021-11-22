@@ -5,7 +5,11 @@ import Pill from './atoms/Pill.vue'
 
 const impulzeStore = useImpulzeStore()
 
-const activeImpulzes = computed(() => impulzeStore.activeImpulzes)
+const activeImpulzes = computed(() =>
+  impulzeStore.activeImpulzes.map(
+    (activeImpulzeWithInterval) => activeImpulzeWithInterval.impulze
+  )
+)
 </script>
 
 <template>

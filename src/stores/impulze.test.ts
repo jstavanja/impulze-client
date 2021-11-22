@@ -1,5 +1,6 @@
 import { createTestingPinia } from '@pinia/testing'
 import { useImpulzeStore } from '../stores/impulze'
+import { impulzesAreEqual } from '../utils/comparison'
 
 const dummyImpulzes = [
   {
@@ -26,7 +27,10 @@ describe('Impulze store', () => {
     impulzeStore.activateImpulze(dummyImpulzes[0])
 
     expect(impulzeStore.activeImpulzes.length).toBe(1)
-    expect(impulzeStore.activeImpulzes.includes(dummyImpulzes[0])).toBe(true)
+
+    const impulzeWithIntervalId = impulzeStore.activeImpulzes.find(activeImpulze => impulzesAreEqual(activeImpulze.impulze, dummyImpulzes[0]))
+
+    expect(impulzeWithIntervalId).toBeDefined()
   })
 
   it('should deactivate an impulze', () => {
@@ -37,7 +41,8 @@ describe('Impulze store', () => {
     impulzeStore.deactivateImpulze(dummyImpulzes[0])
 
     expect(impulzeStore.activeImpulzes.length).toBe(1)
-    expect(impulzeStore.activeImpulzes.includes(dummyImpulzes[0])).toBe(false)
+    const impulzeWithIntervalId = impulzeStore.activeImpulzes.find(activeImpulze => impulzesAreEqual(activeImpulze.impulze, dummyImpulzes[0]))
+    expect(impulzeWithIntervalId).not.toBeDefined()
   })
 
   it('should activate all impulzes from array', () => {
@@ -46,8 +51,12 @@ describe('Impulze store', () => {
     impulzeStore.activateImpulzes(dummyImpulzes)
 
     expect(impulzeStore.activeImpulzes.length).toBe(dummyImpulzes.length)
-    expect(impulzeStore.activeImpulzes.includes(dummyImpulzes[0])).toBe(true)
-    expect(impulzeStore.activeImpulzes.includes(dummyImpulzes[1])).toBe(true)
+
+    const impulze1WithIntervalId = impulzeStore.activeImpulzes.find(activeImpulze => impulzesAreEqual(activeImpulze.impulze, dummyImpulzes[0]))
+    expect(impulze1WithIntervalId).toBeDefined()
+
+    const impulze2WithIntervalId = impulzeStore.activeImpulzes.find(activeImpulze => impulzesAreEqual(activeImpulze.impulze, dummyImpulzes[1]))
+    expect(impulze2WithIntervalId).toBeDefined()
   })
 
   it('should deactivate all impulzes', () => {
@@ -65,8 +74,12 @@ describe('Impulze store', () => {
     impulzeStore.activateImpulzes(dummyImpulzes)
 
     expect(impulzeStore.activeImpulzes.length).toBe(dummyImpulzes.length)
-    expect(impulzeStore.activeImpulzes.includes(dummyImpulzes[0])).toBe(true)
-    expect(impulzeStore.activeImpulzes.includes(dummyImpulzes[1])).toBe(true)
+
+    const impulze1WithIntervalId = impulzeStore.activeImpulzes.find(activeImpulze => impulzesAreEqual(activeImpulze.impulze, dummyImpulzes[0]))
+    expect(impulze1WithIntervalId).toBeDefined()
+
+    const impulze2WithIntervalId = impulzeStore.activeImpulzes.find(activeImpulze => impulzesAreEqual(activeImpulze.impulze, dummyImpulzes[1]))
+    expect(impulze2WithIntervalId).toBeDefined()
   })
 
   it('should compute whether an impulze is active', () => {

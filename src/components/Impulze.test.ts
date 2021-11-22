@@ -2,6 +2,7 @@ import { createTestingPinia, TestingPinia } from '@pinia/testing'
 import { fireEvent } from '@testing-library/dom'
 import { render } from '@testing-library/vue'
 import { useImpulzeStore } from '../stores/impulze'
+import { impulzesAreEqual } from '../utils/comparison'
 import { convertMillisecondsToSeconds } from '../utils/time'
 import Impulze from './Impulze.vue'
 
@@ -49,7 +50,8 @@ describe('Impulze', () => {
 
     await fireEvent.click(activateButton)
 
-    expect(impulzeStore.activeImpulzes.includes(dummyImpulze)).toBe(true)
+    const impulzeWithIntervalId = impulzeStore.activeImpulzes.find(activeImpulze => impulzesAreEqual(activeImpulze.impulze, dummyImpulze))
+    expect(impulzeWithIntervalId).toBeDefined()
 
     getByText(/deactivate/i)
   })

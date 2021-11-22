@@ -1,31 +1,62 @@
 import { defineStore } from 'pinia'
 import { Impulze } from '../types/Impulze'
+import { ImpulzeWithInterval } from '../types/Interval'
+import { impulzesAreEqual } from '../utils/comparison'
+
+const generateImpulzeInterval = (impulze: Impulze): number => {
+  return setInterval(() => {
+    alert(`${impulze.name}: ${impulze.description}`)
+  }, impulze.period)
+}
 
 export const useImpulzeStore = defineStore('impulzes', {
   state: () => {
     return {
-      activeImpulzes: [] as Impulze[],
+      activeImpulzes: [] as ImpulzeWithInterval[],
     }
   },
   getters: {
     impulzeIsActive (state) {
-      return (impulze: Impulze) => state.activeImpulzes.indexOf(impulze) > -1
+      return (impulze: Impulze) => {
+        return state.activeImpulzes.findIndex(
+          activeImpulze => {
+            return impulzesAreEqual(activeImpulze.impulze, impulze)
+          }
+        ) > -1
+      }
     }
   },
   actions: {
     activateImpulze (impulze: Impulze) {
-      if (!this.activeImpulzes.includes(impulze)) {
-        this.activeImpulzes.push(impulze)
+      const impulzeAlreadyActive = this.impulzeIsActive(impulze)
+      if (!impulzeAlreadyActive) {
+        const intervalId = generateImpulzeInterval(impulze)
+        const impulzeInterval: ImpulzeWithInterval = {
+          impulze,
+          intervalId
+        }
+        this.activeImpulzes.push(impulzeInterval)
       }
     },
     deactivateImpulze (impulze: Impulze) {
-      this.activeImpulzes.splice(this.activeImpulzes.indexOf(impulze), 1)
+      const activeImpulzeIndex = this.activeImpulzes.findIndex(activeImpulze => impulzesAreEqual(activeImpulze.impulze, impulze))
+      const activeImpulze = this.activeImpulzes[activeImpulzeIndex]
+
+      if (activeImpulzeIndex > -1) {
+        clearInterval(activeImpulze.intervalId)
+        this.activeImpulzes.splice(activeImpulzeIndex, 1)
+      }
     },
     activateImpulzes (impulzes: Impulze[]) {
-      this.activeImpulzes = [...impulzes]
+      impulzes.forEach(impulze => {
+        this.activateImpulze(impulze)
+      })
     },
     deactivateAllImpulzes () {
-      this.activeImpulzes = []
+      const impulzesToDeactivate = [...this.activeImpulzes]
+      impulzesToDeactivate.forEach(activeImpulze => {
+        this.deactivateImpulze(activeImpulze.impulze)
+      })
     },
   },
 })

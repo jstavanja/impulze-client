@@ -1,6 +1,7 @@
 import { createTestingPinia, TestingPinia } from '@pinia/testing'
 import { render } from '@testing-library/vue'
 import { useImpulzeStore } from '../stores/impulze'
+import { activeImpulzeListContainsOnlyImpulzes } from '../utils/testing'
 import ActionBar from './ActionBar.vue'
 
 const impulzeList = [
@@ -53,7 +54,9 @@ describe('ActionBar', () => {
 
     await startAllImpulzesButton.click()
 
-    expect(impulzeStore.activeImpulzes).toEqual(impulzeList)
+    const activeImpulzesEqualImpulzeList = activeImpulzeListContainsOnlyImpulzes(impulzeStore.activeImpulzes, impulzeList)
+
+    expect(activeImpulzesEqualImpulzeList).toBe(true)
   })
 
   it('should stop all impulzes', async () => {
