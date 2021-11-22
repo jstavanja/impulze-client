@@ -3,9 +3,24 @@ import { Impulze } from '../types/Impulze'
 import { ImpulzeWithInterval } from '../types/Interval'
 import { impulzesAreEqual } from '../utils/comparison'
 
+const triggerNativeNotification = async (title: string, body: string) => {
+  (async () => {
+    try {
+      await Notification.requestPermission()
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const _n = new Notification(title, {
+        body
+      })
+    } catch (error) {
+      // TODO: add a toast notification
+      console.warn(error)
+    }
+  })()
+}
+
 const generateImpulzeInterval = (impulze: Impulze): number => {
   return setInterval(() => {
-    alert(`${impulze.name}: ${impulze.description}`)
+    triggerNativeNotification(impulze.name, impulze.description)
   }, impulze.period)
 }
 
