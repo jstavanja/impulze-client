@@ -47,6 +47,9 @@ const closeModal = () => {
 
   background-color: $white;
   border-radius: $border-radius;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .modal__close-button {

@@ -37,3 +37,22 @@ watch(inputValue, (newValue) => {
     />
   </div>
 </template>
+
+<style lang="scss" scoped>
+@import '../../styles/variables';
+.field {
+  display: flex;
+  flex-direction: column;
+  &:not(:last-child) {
+    margin-bottom: $spacing-4;
+  }
+}
+
+input {
+  display: block;
+  margin-top: $spacing-2;
+  border-radius: $border-radius;
+  background-color: $white;
+  padding: 10px 20px;
+}
+</style>

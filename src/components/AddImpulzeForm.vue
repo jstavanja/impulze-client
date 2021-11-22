@@ -21,8 +21,9 @@ const submitSubmitEvent = () => {
 </script>
 
 <template>
-  <form @submit.prevent>
+  <form @submit.prevent class="add-impulze-form">
     <Field
+      class="add-impulze-form__name-field"
       name="name"
       label="Name"
       placeholder="My cool impulze"
@@ -40,4 +41,10 @@ const submitSubmitEvent = () => {
   </form>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+@import '../styles/variables';
+
+.add-impulze-form__name-field {
+  margin-top: $spacing-4;
+}
+</style>
