@@ -1,5 +1,12 @@
 import { createApp } from 'vue'
-import App from './App.vue'
+import { router } from './routes'
 import { createPinia } from 'pinia'
+import App from './App.vue'
+import initializeAxiosInterceptors from './utils/initialize-axios-interceptors'
 
-createApp(App).use(createPinia()).mount('#app')
+initializeAxiosInterceptors()
+
+createApp(App)
+  .use(router)
+  .use(createPinia())
+  .mount('#app')

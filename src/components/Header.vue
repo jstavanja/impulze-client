@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import useAuth from '../composables/useAuth'
 import { useModalStore } from '../stores/modals'
 import { Modal } from '../types/Modal'
 import Button from './atoms/Button.vue'
-const currentlyLoggedInUser = 'Jaka' // TODO: useUser
+
+const { user, logout } = useAuth()
 
 const modalStore = useModalStore()
 
@@ -21,8 +23,8 @@ const openAddImpulzeModal = () => {
       </div>
 
       <div class="header__actions">
-        <div>Welcome back, {{ currentlyLoggedInUser }}!</div>
-        <Button variant="secondary">Log out</Button>
+        <div>Welcome back, {{ user?.username }}!</div>
+        <Button variant="secondary" @click="logout">Log out</Button>
       </div>
     </div>
   </header>
