@@ -2,5 +2,5 @@ import { Impulze } from './Impulze'
 
 export interface ImpulzeWithInterval {
   impulze: Impulze
-  intervalId: number
+  intervalId: ReturnType<typeof setInterval>
 }
