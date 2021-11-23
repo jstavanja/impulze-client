@@ -14,18 +14,23 @@ const activeImpulzes = computed(() =>
 
 <template>
   <div class="active-impulze-list">
-    <h2 class="active-impulze-list__title">Currently active impulzes:</h2>
-    <ul class="active-impulze-list__unordered-list">
-      <li
-        class="active-impulze-list__item"
-        v-for="activeImpulze in activeImpulzes"
-        :key="activeImpulze.description"
-      >
-        <Pill variant="primary">
-          {{ activeImpulze.name }}
-        </Pill>
-      </li>
-    </ul>
+    <template v-if="activeImpulzes.length === 0">
+      <h2 class="active-impulze-list__title">No active impulzes.</h2>
+    </template>
+    <template v-else>
+      <h2 class="active-impulze-list__title">Currently active impulzes:</h2>
+      <ul class="active-impulze-list__unordered-list">
+        <li
+          class="active-impulze-list__item"
+          v-for="activeImpulze in activeImpulzes"
+          :key="activeImpulze.description"
+        >
+          <Pill variant="primary">
+            {{ activeImpulze.name }}
+          </Pill>
+        </li>
+      </ul>
+    </template>
   </div>
 </template>
 

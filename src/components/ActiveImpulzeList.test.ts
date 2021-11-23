@@ -39,4 +39,17 @@ describe('ActiveImpulzeList', () => {
     getByText(impulzeList[0].name)
     getByText(impulzeList[1].name)
   })
+
+  it('should display a no active impulzes title if there are no active impulzes', () => {
+    const { getByText } = render(ActiveImpulzeList, {
+      global: {
+        plugins: [testingPinia]
+      },
+      props: {
+        activeImpulzes: [],
+      },
+    })
+
+    getByText(/no active impulzes/i)
+  })
 })
