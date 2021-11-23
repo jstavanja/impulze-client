@@ -19,7 +19,7 @@ const triggerNativeNotification = async (title: string, body: string) => {
 }
 
 const generateImpulzeInterval = (impulze: Impulze) => {
-  return setInterval(() => {
+  return window.setInterval(() => {
     triggerNativeNotification(impulze.name, impulze.description)
   }, impulze.period)
 }
