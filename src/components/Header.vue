@@ -1,10 +1,18 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import useAuth from '../composables/useAuth'
 import { useModalStore } from '../stores/modals'
 import { Modal } from '../types/Modal'
 import Button from './atoms/Button.vue'
 
 const { user, logout } = useAuth()
+
+const router = useRouter()
+
+const logoutAndRedirectToLogin = () => {
+  logout()
+  router.push('/login')
+}
 
 const modalStore = useModalStore()
 
@@ -24,7 +32,9 @@ const openAddImpulzeModal = () => {
 
       <div class="header__actions">
         <div>Welcome back, {{ user?.username }}!</div>
-        <Button variant="secondary" @click="logout">Log out</Button>
+        <Button variant="secondary" @click="logoutAndRedirectToLogin">
+          Log out
+        </Button>
       </div>
     </div>
   </header>

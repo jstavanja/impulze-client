@@ -7,6 +7,7 @@ import { Modal } from '../types/Modal'
 import Header from './Header.vue'
 import { setupServer } from 'msw/node'
 import handlers from '../mocks/handlers'
+import { router } from '../routes'
 
 const server = setupServer(...handlers)
 
@@ -31,7 +32,7 @@ describe('Header', () => {
 
     const { getByText } = render(Header, {
       global: {
-        plugins: [testingPinia],
+        plugins: [testingPinia, router],
       }
     })
 
@@ -45,7 +46,7 @@ describe('Header', () => {
   it('should be able to show the username', async () => {
     const { getByText } = render(Header, {
       global: {
-        plugins: [testingPinia],
+        plugins: [testingPinia, router],
       }
     })
 
@@ -57,7 +58,7 @@ describe('Header', () => {
   it('should be able to log the player out', async () => {
     const { getByText } = render(Header, {
       global: {
-        plugins: [testingPinia],
+        plugins: [testingPinia, router],
       }
     })
 
