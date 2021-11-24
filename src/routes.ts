@@ -26,7 +26,7 @@ router.beforeEach((to, from, next) => {
     }
   } else if (to.matched.some(record => record.meta.requiresUnauth)) {
     // eslint-disable-next-line no-constant-condition
-    if (true) { // add auth check here
+    if (false) { // add auth check here
       next({
         path: '/',
         query: { redirect: to.fullPath }
