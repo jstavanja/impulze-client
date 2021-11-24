@@ -1,17 +1,9 @@
-import axios from 'axios'
 import useSWRV, { mutate } from 'swrv'
 import API_ROUTES from '../constants/api-routes'
 import LOCAL_STORAGE_KEYS from '../constants/local-storage-keys'
 import { UserInfo } from '../types/User'
-import { getLocalStorageItem, removeLocalStorageItem } from '../utils/local-storage'
-
-const swrUserFetcher = async (url: string): Promise<UserInfo> => {
-  getLocalStorageItem(LOCAL_STORAGE_KEYS.JWT_TOKEN) // throws if no token
-
-  const { data: user } = await axios.get<UserInfo>(url)
-
-  return user
-}
+import { removeLocalStorageItem } from '../utils/local-storage'
+import userFetcher from '../utils/fetchers/user'
 
 const useAuth = () => {
   const fetchingOptions = {
@@ -22,7 +14,7 @@ const useAuth = () => {
   const {
     data: user,
     error,
-  } = useSWRV<UserInfo | null>(API_ROUTES.USER.INFO, swrUserFetcher, fetchingOptions)
+  } = useSWRV<UserInfo | null>(API_ROUTES.USER.INFO, userFetcher, fetchingOptions)
 
   const loading = !!(!user && !error)
 
