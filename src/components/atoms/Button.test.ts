@@ -27,4 +27,22 @@ describe('Button', () => {
 
     expect(emitted().click).toBeTruthy()
   })
+
+  it('should not emit the click event when disabled and pressed', async () => {
+    const msg = 'click me'
+    const { getByText, emitted } = render(Button, {
+      slots: {
+        default: msg
+      },
+      props: {
+        disabled: true
+      }
+    })
+
+    const button = getByText(msg)
+
+    await fireEvent.click(button)
+
+    expect(emitted().click).not.toBeTruthy()
+  })
 })

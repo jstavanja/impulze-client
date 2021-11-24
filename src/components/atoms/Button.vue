@@ -5,12 +5,14 @@ interface Props {
   variant?: 'primary' | 'secondary' | 'alert' | 'success' | 'warning'
   size?: 'small' | 'normal'
   customClass?: string
+  disabled?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   variant: 'primary',
   size: 'normal',
   customClass: '',
+  disabled: false,
 })
 
 const isPrimary = computed(() => props.variant === 'primary')
@@ -24,6 +26,7 @@ const isSmall = computed(() => props.size === 'small')
 const emit = defineEmits(['click'])
 
 const emitClick = () => {
+  if (props.disabled) return
   emit('click')
 }
 </script>
@@ -40,8 +43,11 @@ const emitClick = () => {
       'button--warning': isWarning,
 
       'button--small': isSmall,
+
+      'button--disabled': disabled,
       [customClass]: true,
     }"
+    :disabled="disabled"
     @click="emitClick"
   >
     <slot />
@@ -83,5 +89,10 @@ const emitClick = () => {
   max-height: 25px;
   --button-padding: 5px 10px;
   font-size: $font-size-sm;
+}
+
+.button--disabled {
+  pointer-events: none;
+  background-color: $primary-200;
 }
 </style>

@@ -1,9 +1,30 @@
 <script setup lang="ts">
+import axios from 'axios'
 import LoginForm from '../components/LoginForm.vue'
+import API_ROUTES from '../constants/api-routes'
 import AuthLayout from '../layouts/Auth.vue'
+import { router } from '../routes'
+import { setLocalStorageItem } from '../utils/local-storage'
 
-const login = (email: string, password: string) => {
-  console.log(email, password)
+interface LoginResponse {
+  token: string
+}
+
+const login = async (email: string, password: string) => {
+  try {
+    const loginResponse = await axios.post<LoginResponse>(
+      API_ROUTES.USER.LOGIN,
+      {
+        email,
+        password,
+      }
+    )
+    setLocalStorageItem('impulze_token', loginResponse.data.token)
+    router.push('/')
+  } catch (err) {
+    // TODO: add toast
+    alert('Login failed')
+  }
 }
 </script>
 

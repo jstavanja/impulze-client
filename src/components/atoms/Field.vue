@@ -10,11 +10,13 @@ const props = withDefaults(
     name: string
     placeholder?: string
     inputType?: 'text' | 'tel' | 'password'
+    errorMessage?: string
   }>(),
   {
     modelValue: undefined,
     inputType: 'text',
     placeholder: '',
+    errorMessage: undefined,
   }
 )
 
@@ -29,12 +31,14 @@ watch(inputValue, (newValue) => {
   <div class="field">
     <label :for="props.name">{{ props.label }}</label>
     <input
+      :class="{ 'input--error': errorMessage }"
       :type="props.inputType"
       :placeholder="props.placeholder"
       :name="props.name"
       :id="props.name"
       v-model="inputValue"
     />
+    <span class="field__error">{{ errorMessage }}</span>
   </div>
 </template>
 
@@ -48,11 +52,20 @@ watch(inputValue, (newValue) => {
   }
 }
 
+.field__error {
+  margin-top: $spacing-2;
+  color: $red-600;
+}
+
 input {
   display: block;
   margin-top: $spacing-2;
   border-radius: $border-radius;
   background-color: $white;
   padding: 10px 20px;
+}
+
+.input--error {
+  border: 2px solid $red-600;
 }
 </style>
