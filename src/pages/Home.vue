@@ -7,16 +7,30 @@ import ActionBar from '../components/ActionBar.vue'
 import ActiveImpulzeList from '../components/ActiveImpulzeList.vue'
 import Header from '../components/Header.vue'
 import ImpulzeModal from '../components/ImpulzeModal.vue'
+import Pill from '../components/atoms/Pill.vue'
+import API_ROUTES from '../constants/api-routes'
+import axiosFetcher from '../utils/fetchers/axios'
 
-const { data: impulzes } = useSWRV<Impulze[]>('http://localhost:8080/impulzes')
+const { data: impulzes } = useSWRV<Impulze[]>(
+  API_ROUTES.IMPULZE.INDEX,
+  axiosFetcher
+)
 </script>
 
 <template>
   <Header />
   <main class="app-content">
-    <ActiveImpulzeList :active-impulzes="impulzes" v-if="impulzes" />
-    <ActionBar :impulzes="impulzes" v-if="impulzes" />
-    <ImpulzeList :impulzes="impulzes" v-if="impulzes" />
+    <template v-if="impulzes">
+      <ActiveImpulzeList :active-impulzes="impulzes" />
+      <ActionBar :impulzes="impulzes" />
+      <ImpulzeList :impulzes="impulzes" />
+    </template>
+    <div class="no-impulzes" v-else>
+      🙈 <span>No impulzes yet.</span>
+      Create your first impulze using the
+      <Pill variant="secondary">Add an Impulze</Pill>
+      button above.
+    </div>
   </main>
   <ImpulzeModal />
 </template>
@@ -37,5 +51,12 @@ HTML {
 .app-content {
   @include limit-max-width;
   padding: $spacing-2;
+}
+
+.no-impulzes {
+  padding: $spacing-8;
+  background-color: $gray-50;
+  border-radius: $border-radius;
+  font-size: $font-size-md;
 }
 </style>

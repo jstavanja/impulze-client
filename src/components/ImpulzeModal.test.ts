@@ -11,20 +11,30 @@ describe('Login form', () => {
 
     modalStore.openModal(Modal.AddImpulze)
 
-    const msg = 'modal text content'
-
     const { getByText } = render(ImpulzeModal, {
       global: {
         plugins: [testingPinia],
       },
-      props: {
-        modal: Modal.AddImpulze,
-      },
-      slots: {
-        default: msg,
-      },
     })
 
     getByText('Add impulze')
+  })
+
+  it('should display the necessary fields', async () => {
+    const testingPinia = createTestingPinia()
+    const modalStore = useModalStore()
+
+    modalStore.openModal(Modal.AddImpulze)
+
+    const { getByLabelText, getByText } = render(ImpulzeModal, {
+      global: {
+        plugins: [testingPinia],
+      },
+    })
+
+    getByLabelText('Name')
+    getByLabelText('Description')
+    getByLabelText('Period')
+    getByText('Add')
   })
 })

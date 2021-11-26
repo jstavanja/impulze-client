@@ -1,22 +1,62 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { useField } from 'vee-validate'
+import { computed } from 'vue'
+import { string } from 'yup'
 import { Impulze } from '../types/Impulze'
 import Button from './atoms/Button.vue'
 import Field from './atoms/Field.vue'
 
-const emit = defineEmits(['submit'])
+const props = defineProps<{
+  addImpulzeFunction:(impulze: Impulze) => void
+}>()
 
-const name = ref<string>('')
-const description = ref<string>('')
-const period = ref<number>()
+const {
+  value: name,
+  errorMessage: nameErrorMessage,
+  meta: nameMeta,
+} = useField<string>('name', string().required('This field is required'))
 
-const submitSubmitEvent = () => {
+const {
+  value: description,
+  errorMessage: descriptionErrorMessage,
+  meta: descriptionMeta,
+} = useField<string>('description', string().required('This field is required'))
+
+const {
+  value: period,
+  errorMessage: periodErrorMessage,
+  meta: periodMeta,
+} = useField<number>(
+  'period',
+  string()
+    .required('This field is required')
+    .matches(/^\d*$/, 'Input must be an integer number')
+)
+
+const formInvalid = computed(
+  () =>
+    !!nameErrorMessage.value ||
+    !!descriptionErrorMessage.value ||
+    !!periodErrorMessage.value ||
+    !nameMeta.dirty ||
+    !descriptionMeta.dirty ||
+    !periodMeta.dirty
+)
+
+const callAddImpulzeFunction = () => {
+  if (formInvalid.value) return
+
+  if (typeof period.value !== 'number') {
+    period.value = parseInt(period.value)
+  }
+
   const newImpulze: Impulze = {
     name: name.value,
     description: description.value,
-    period: period.value || 0,
+    period: period.value,
   }
-  emit('submit', newImpulze)
+
+  props.addImpulzeFunction(newImpulze)
 }
 </script>
 
@@ -28,16 +68,27 @@ const submitSubmitEvent = () => {
       label="Name"
       placeholder="My cool impulze"
       v-model="name"
+      :error-message="nameErrorMessage"
     />
     <Field
+      class="add-impulze-form__description-field"
       name="description"
       label="Description"
       placeholder="This impulze is meant to notify me about ..."
       v-model="description"
+      :error-message="descriptionErrorMessage"
     />
-    <Field name="period" label="Period" placeholder="60" v-model="period" />
+    <Field
+      class="add-impulze-form__period-field"
+      name="period"
+      label="Period"
+      placeholder="60"
+      v-model="period"
+      input-type="number"
+      :error-message="periodErrorMessage"
+    />
 
-    <Button @click="submitSubmitEvent">Add</Button>
+    <Button @click="callAddImpulzeFunction" custom-class="add-impulze-form__add-button" :disabled="formInvalid">Add</Button>
   </form>
 </template>
 

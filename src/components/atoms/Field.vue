@@ -9,7 +9,7 @@ const props = withDefaults(
     label: string
     name: string
     placeholder?: string
-    inputType?: 'text' | 'tel' | 'password'
+    inputType?: 'text' | 'tel' | 'password' | 'number'
     errorMessage?: string
   }>(),
   {

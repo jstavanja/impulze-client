@@ -52,5 +52,6 @@ const isSmall = computed(() => props.size === 'small')
 
 .pill--secondary {
   background-color: $gray-50;
+  border: 1px solid $gray-500;
 }
 </style>
