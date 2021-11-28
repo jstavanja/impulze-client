@@ -4,6 +4,7 @@ import RegistrationForm from '../components/RegistrationForm.vue'
 import API_ROUTES from '../constants/api-routes'
 import AuthLayout from '../layouts/Auth.vue'
 import { router } from '../routes'
+import Link from '../components/atoms/Link.vue'
 
 interface RegisterResponse {
   token: string
@@ -35,6 +36,9 @@ const register = async (
   <AuthLayout>
     <h2 class="register-page__title">Create an account on ⚡️ Impulze</h2>
     <RegistrationForm :register-function="register" />
+    <Link to="/login" class="register-page__register-link">
+      Already have an account? Log in here.
+    </Link>
   </AuthLayout>
 </template>
 
@@ -43,5 +47,10 @@ const register = async (
 .register-page__title {
   font-size: $font-size-3xl;
   margin-bottom: $spacing-4;
+}
+
+.register-page__register-link {
+  display: block;
+  margin-top: $spacing-4;
 }
 </style>
