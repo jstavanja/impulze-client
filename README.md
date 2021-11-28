@@ -20,10 +20,13 @@ First, you'll have to install packages by running:
 npm install
 ```
 
-For local development, you will need to create and initialize a MongoDB database and set some environment variables. You can also use a service like mlab or a MongoDB Docker Image, to which you will connect by setting the following variables:
+For local development, you will need to connect to an instance of the API, found in the old (legacy) impulze project. There, the script is labeled as `server`. Then, you need to set the .env variable like this:
 
-The MONGODB_URI environment variable should contain the URI to the database, MONGODB_USERNAME and MONGODB_PASSWORD should contain the username and password of the user that has R/W access to the database.
-You also need to add a JWT_SECRET to your environment, as this project uses a JSON web token architecture for authenticating users.
+```bash
+VUE_APP_API_URL=http://localhost:3000
+```
+
+An example is already present in the repository.
 
 To run the project for local development, run:
 
