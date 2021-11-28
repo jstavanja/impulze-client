@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import useSWRV from 'swrv'
 
-import { Impulze } from '../types/Impulze'
+import { ImpulzeResponse } from '../types/Impulze'
 import ImpulzeList from '../components/ImpulzeList.vue'
 import ActionBar from '../components/ActionBar.vue'
 import ActiveImpulzeList from '../components/ActiveImpulzeList.vue'
@@ -11,7 +11,7 @@ import Pill from '../components/atoms/Pill.vue'
 import API_ROUTES from '../constants/api-routes'
 import axiosFetcher from '../utils/fetchers/axios'
 
-const { data: impulzes } = useSWRV<Impulze[]>(
+const { data: impulzes } = useSWRV<ImpulzeResponse[]>(
   API_ROUTES.IMPULZE.INDEX,
   axiosFetcher
 )

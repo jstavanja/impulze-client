@@ -3,3 +3,7 @@ export interface Impulze {
   description: string
   period: number
 }
+
+export interface ImpulzeResponse extends Impulze {
+  _id: string;
+}

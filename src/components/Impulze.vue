@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { defineProps, computed } from 'vue'
 import { useImpulzeStore } from '../stores/impulze'
-import { Impulze } from '../types/Impulze'
+import { ImpulzeResponse } from '../types/Impulze'
 import Button from './atoms/Button.vue'
 
 const props = defineProps<{
-  impulze: Impulze
+  impulze: ImpulzeResponse
+  deleteImpulzeFunction:(impulzeId: string) => void
 }>()
 
 const impulzeStore = useImpulzeStore()
@@ -23,7 +24,7 @@ const deactivateImpulze = () => {
 }
 
 const deleteImpulze = () => {
-  console.log('Not implemented: delete impulze')
+  props.deleteImpulzeFunction(props.impulze._id)
 }
 </script>
 

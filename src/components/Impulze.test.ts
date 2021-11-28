@@ -7,6 +7,7 @@ import { convertMillisecondsToSeconds } from '../utils/time'
 import Impulze from './Impulze.vue'
 
 const dummyImpulze = {
+  _id: 'asodijaod12e98j',
   name: 'Test impulze #2',
   description: 'This is a testing impulze',
   period: 10000,
@@ -26,6 +27,8 @@ describe('Impulze', () => {
       },
       props: {
         impulze: dummyImpulze,
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        deleteImpulzeFunction: () => {}
       },
     })
 
@@ -43,6 +46,8 @@ describe('Impulze', () => {
       },
       props: {
         impulze: dummyImpulze,
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        deleteImpulzeFunction: () => {}
       },
     })
 
@@ -54,5 +59,25 @@ describe('Impulze', () => {
     expect(impulzeWithIntervalId).toBeDefined()
 
     getByText(/deactivate/i)
+  })
+
+  it('should call the impulze delete function with the correct parameter when pressing remove', async () => {
+    const deleteImpulzeFunction = jest.fn()
+
+    const { getByText } = render(Impulze, {
+      global: {
+        plugins: [testingPinia],
+      },
+      props: {
+        impulze: dummyImpulze,
+        deleteImpulzeFunction
+      },
+    })
+
+    const removeButton = getByText(/remove/i)
+
+    await fireEvent.click(removeButton)
+
+    expect(deleteImpulzeFunction).toBeCalledWith(dummyImpulze._id)
   })
 })
