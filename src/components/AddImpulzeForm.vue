@@ -3,6 +3,7 @@ import { useField } from 'vee-validate'
 import { computed } from 'vue'
 import { string } from 'yup'
 import { Impulze } from '../types/Impulze'
+import { convertSecondsToMilliseconds } from '../utils/time'
 import Button from './atoms/Button.vue'
 import Field from './atoms/Field.vue'
 
@@ -53,7 +54,7 @@ const callAddImpulzeFunction = () => {
   const newImpulze: Impulze = {
     name: name.value,
     description: description.value,
-    period: period.value,
+    period: convertSecondsToMilliseconds(period.value),
   }
 
   props.addImpulzeFunction(newImpulze)
@@ -88,7 +89,13 @@ const callAddImpulzeFunction = () => {
       :error-message="periodErrorMessage"
     />
 
-    <Button @click="callAddImpulzeFunction" custom-class="add-impulze-form__add-button" :disabled="formInvalid">Add</Button>
+    <Button
+      @click="callAddImpulzeFunction"
+      custom-class="add-impulze-form__add-button"
+      :disabled="formInvalid"
+    >
+      Add
+    </Button>
   </form>
 </template>
 

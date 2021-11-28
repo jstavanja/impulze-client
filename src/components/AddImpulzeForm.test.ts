@@ -1,6 +1,7 @@
 import { fireEvent, render } from '@testing-library/vue'
 import { flushPromises } from '@vue/test-utils'
 import mockImpulzes from '../mocks/fixtures/impulzes'
+import { convertMillisecondsToSeconds } from '../utils/time'
 import AddImpulzeForm from './AddImpulzeForm.vue'
 
 describe('Add impulze form', () => {
@@ -52,7 +53,7 @@ describe('Add impulze form', () => {
     await fireEvent.update(descriptionField, mockDescription)
 
     const periodField = getByLabelText(/period/i)
-    const mockPeriod = mockImpulzes[0].period.toString()
+    const mockPeriod = convertMillisecondsToSeconds(mockImpulzes[0].period).toString()
     await fireEvent.update(periodField, mockPeriod)
 
     const addButton = getByText(/add/i)
