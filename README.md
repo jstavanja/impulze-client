@@ -4,6 +4,10 @@ Front-end client for the Impulze reminder application.
 
 ![Image of the application's home page](docs/app_preview.png)
 
+The application uses native browser notifications to notify you about you reminders.
+
+![Image of the application's notifications](docs/notification_example.png)
+
 ## Project description
 
 This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
