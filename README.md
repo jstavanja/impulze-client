@@ -1,6 +1,63 @@
-# Vue 3 + Typescript + Vite
+# ⚡️ Impulze Client
+
+Front-end client for the Impulze reminder application.
+
+![Image of the application's home page](docs/app_preview.png)
+
+## Project description
 
 This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+
+## Environment setup
+
+First, you'll have to install packages by running:
+
+```bash
+npm install
+```
+
+For local development, you will need to create and initialize a MongoDB database and set some environment variables. You can also use a service like mlab or a MongoDB Docker Image, to which you will connect by setting the following variables:
+
+The MONGODB_URI environment variable should contain the URI to the database, MONGODB_USERNAME and MONGODB_PASSWORD should contain the username and password of the user that has R/W access to the database.
+You also need to add a JWT_SECRET to your environment, as this project uses a JSON web token architecture for authenticating users.
+
+To run the project for local development, run:
+
+```bash
+npm run dev
+```
+
+You can also use yarn if you so prefer.
+
+To build the project for production, run:
+
+```bash
+npm run build
+```
+
+For running the tests, run:
+
+```bash
+npm run test
+```
+
+or do the same, but in watch mode:
+
+```bash
+npm run test:watch
+```
+
+To run the linter, run
+
+```bash
+npm run lint
+```
+
+or to fix the code:
+
+```bash
+npm run lint:fix
+```
 
 ## Recommended IDE Setup
 
