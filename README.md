@@ -1,6 +1,14 @@
-# ⚡️ Impulze Client
+# ⚡️ Impulze
 
-Front-end client for the Impulze reminder application.
+<center>
+<img src="docs/app_logo.jpg" width=400>
+<br />
+Get reminded on a periodic basis!
+</center>
+
+## Repository description
+
+This repository houses the front-end client for the Impulze reminder application.
 
 ![Image of the application's home page](docs/app_preview.png)
 
