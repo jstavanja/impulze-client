@@ -1,10 +1,10 @@
 # ⚡️ Impulze
 
-<center>
+<p align="center">
 <img src="docs/app_logo.jpg" width=400>
 <br />
 Get reminded on a periodic basis!
-</center>
+</p>
 
 ## Repository description
 
