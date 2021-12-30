@@ -6,7 +6,7 @@ import Button from './atoms/Button.vue'
 
 const props = defineProps<{
   impulze: ImpulzeResponse
-  deleteImpulzeFunction:(impulzeId: string) => void
+  deleteImpulzeFunction:(impulzeId: number) => void
 }>()
 
 const impulzeStore = useImpulzeStore()

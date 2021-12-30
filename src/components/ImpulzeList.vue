@@ -11,7 +11,7 @@ const props = defineProps<{
   impulzes: ImpulzeResponse[] | undefined
 }>()
 
-const deleteImpulze = async (impulzeId: string) => {
+const deleteImpulze = async (impulzeId: number) => {
   try {
     await axios.delete(`${API_ROUTES.IMPULZE.REMOVE}/${impulzeId}`)
     mutate(API_ROUTES.IMPULZE.INDEX, axiosFetcher(API_ROUTES.IMPULZE.INDEX)) // TODO: make this not need a request
