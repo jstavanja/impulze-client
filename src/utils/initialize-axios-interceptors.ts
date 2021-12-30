@@ -18,7 +18,7 @@ const initializeAxiosInterceptors = () => {
     return config
   })
 
-  axios.defaults.baseURL = import.meta.env.VUE_APP_API_URL as string || 'http://localhost:3000'
+  axios.defaults.baseURL = import.meta.env.VITE_APP_API_URL as string || 'http://localhost:3000'
 }
 
 export default initializeAxiosInterceptors
