@@ -1,8 +1,7 @@
 import { UserInfo } from '../../types/User'
 
 const mockUserInfo: UserInfo = {
-  _id: 'asdasdasd',
-  username: 'tester1',
+  id: 1,
   email: 'tester@impulze.io'
 }
 
