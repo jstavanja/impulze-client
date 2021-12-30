@@ -5,5 +5,5 @@ export interface Impulze {
 }
 
 export interface ImpulzeResponse extends Impulze {
-  _id: string;
+  id: number;
 }
