@@ -51,7 +51,7 @@ describe('Header', () => {
     })
 
     await waitFor(() => {
-      getByText(`Welcome back, ${mockUserInfo.username}!`)
+      getByText(`Welcome back, ${mockUserInfo.email}!`)
     })
   })
 

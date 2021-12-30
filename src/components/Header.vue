@@ -31,7 +31,7 @@ const openAddImpulzeModal = () => {
       </div>
 
       <div class="header__actions">
-        <div>Welcome back, {{ user?.username }}!</div>
+        <div>Welcome back, {{ user?.email }}!</div>
         <Button variant="secondary" @click="logoutAndRedirectToLogin">
           Log out
         </Button>
