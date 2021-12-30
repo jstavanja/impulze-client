@@ -1,13 +1,13 @@
 const API_ROUTES = {
   USER: {
-    LOGIN: '/api/auth/login',
-    REGISTER: '/api/auth/register',
-    INFO: '/api/auth/info'
+    LOGIN: '/login',
+    REGISTER: '/register',
+    INFO: '/info'
   },
   IMPULZE: {
-    INDEX: '/api/impulze',
-    STORE: '/api/impulze',
-    REMOVE: '/api/impulze'
+    INDEX: '/impulze',
+    STORE: '/impulze',
+    REMOVE: '/impulze'
   }
 }
 
