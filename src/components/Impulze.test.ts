@@ -2,12 +2,13 @@ import { createTestingPinia, TestingPinia } from '@pinia/testing'
 import { fireEvent } from '@testing-library/dom'
 import { render } from '@testing-library/vue'
 import { useImpulzeStore } from '../stores/impulze'
+import { ImpulzeResponse } from '../types/Impulze'
 import { impulzesAreEqual } from '../utils/comparison'
 import { convertMillisecondsToSeconds } from '../utils/time'
 import Impulze from './Impulze.vue'
 
-const dummyImpulze = {
-  _id: 'asodijaod12e98j',
+const dummyImpulze: ImpulzeResponse = {
+  id: 1,
   name: 'Test impulze #2',
   description: 'This is a testing impulze',
   period: 10000,
@@ -78,6 +79,6 @@ describe('Impulze', () => {
 
     await fireEvent.click(removeButton)
 
-    expect(deleteImpulzeFunction).toBeCalledWith(dummyImpulze._id)
+    expect(deleteImpulzeFunction).toBeCalledWith(dummyImpulze.id)
   })
 })

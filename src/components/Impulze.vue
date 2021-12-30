@@ -24,7 +24,7 @@ const deactivateImpulze = () => {
 }
 
 const deleteImpulze = () => {
-  props.deleteImpulzeFunction(props.impulze._id)
+  props.deleteImpulzeFunction(props.impulze.id)
 }
 </script>
 
