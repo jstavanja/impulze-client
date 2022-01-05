@@ -38,20 +38,6 @@ const { data: impulzes } = useSWRV<ImpulzeResponse[]>(
 <style lang="scss">
 @import '../styles/_variables.scss';
 @import '../styles/mixins.scss';
-@import '../styles/reset.scss';
-@import '../styles/z-indices.scss';
-
-body,
-HTML {
-  font-family: $font-family-primary;
-  color: $black;
-  font-size: 14px;
-}
-
-p, button, span, a, input {
-  font-family: $font-family-primary;
-  line-height: 1;
-}
 
 .app-content {
   @include limit-max-width;
