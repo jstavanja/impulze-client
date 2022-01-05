@@ -43,9 +43,14 @@ const { data: impulzes } = useSWRV<ImpulzeResponse[]>(
 
 body,
 HTML {
-  font-family: 'Poppins', sans-serif;
+  font-family: $font-family-primary;
   color: $black;
   font-size: 14px;
+}
+
+p, button, span, a, input {
+  font-family: $font-family-primary;
+  line-height: 1;
 }
 
 .app-content {

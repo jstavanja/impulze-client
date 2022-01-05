@@ -42,12 +42,12 @@ const isSmall = computed(() => props.size === 'small')
 
 .pill {
   border-radius: $border-radius;
-  padding: 5px 10px;
+  font-size: $font-size-sm;
+  padding: 6px 10px;
 }
 
 .pill--primary {
   background-color: $primary-300;
-  color: $white;
 }
 
 .pill--secondary {

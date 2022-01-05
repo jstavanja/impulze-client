@@ -47,7 +47,7 @@ const activeImpulzes = computed(() =>
 
 .active-impulze-list__title {
   margin-bottom: $spacing-2;
-  font-size: $font-size-lg;
+  font-size: $font-size-md;
   font-weight: bold;
 }
 

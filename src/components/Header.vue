@@ -44,6 +44,10 @@ const openAddImpulzeModal = () => {
 @import '../styles/variables';
 @import '../styles/mixins';
 
+header {
+  margin-top: $spacing-4;
+}
+
 .header__wrapper {
   @include limit-max-width;
   display: flex;
