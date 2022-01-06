@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { useField } from 'vee-validate'
-import { computed } from 'vue'
-import { string } from 'yup'
+import { computed, ref, watch } from 'vue'
+import { number, string } from 'yup'
 import { Impulze } from '../types/Impulze'
-import { convertSecondsToMilliseconds } from '../utils/time'
+import { convertSplitUnitsToMilliseconds } from '../utils/time'
 import Button from './atoms/Button.vue'
 import Field from './atoms/Field.vue'
+import FieldError from './atoms/FieldError.vue'
 
 const props = defineProps<{
   addImpulzeFunction:(impulze: Impulze) => void
@@ -23,16 +24,28 @@ const {
   meta: descriptionMeta,
 } = useField<string>('description', string().required('This field is required'))
 
+const hours = ref('')
+const minutes = ref('')
+const seconds = ref('')
+
 const {
   value: period,
   errorMessage: periodErrorMessage,
   meta: periodMeta,
 } = useField<number>(
   'period',
-  string()
-    .required('This field is required')
-    .matches(/^\d*$/, 'Input must be an integer number')
+  number()
+    .required('A period is required')
+    .moreThan(0, 'The period has to be bigger than 0 seconds')
 )
+
+const periodInMilliseconds = computed(() => {
+  return convertSplitUnitsToMilliseconds(parseInt(hours.value || '0'), parseInt(minutes.value || '0'), parseInt(seconds.value || '0'))
+})
+
+watch(periodInMilliseconds, (value) => {
+  period.value = value
+})
 
 const formInvalid = computed(
   () =>
@@ -54,7 +67,7 @@ const callAddImpulzeFunction = () => {
   const newImpulze: Impulze = {
     name: name.value,
     description: description.value,
-    period: convertSecondsToMilliseconds(period.value),
+    period: period.value,
   }
 
   props.addImpulzeFunction(newImpulze)
@@ -79,15 +92,39 @@ const callAddImpulzeFunction = () => {
       v-model="description"
       :error-message="descriptionErrorMessage"
     />
-    <Field
-      class="add-impulze-form__period-field"
-      name="period"
-      label="Period"
-      placeholder="60"
-      v-model="period"
-      input-type="number"
-      :error-message="periodErrorMessage"
-    />
+    <div class="add-impulze-form__period-section">
+      <div class="add-impulze-form__period-label">Period:</div>
+      <fieldset class="add-impulze-form__period-fieldset">
+        <Field
+          class="add-impulze-form__period-field"
+          name="hours"
+          label="Hours"
+          placeholder="1"
+          v-model="hours"
+          input-type="number"
+          has-label-in-row
+        />
+        <Field
+          class="add-impulze-form__period-field"
+          name="minutes"
+          label="Minutes"
+          placeholder="15"
+          v-model="minutes"
+          input-type="number"
+          has-label-in-row
+        />
+        <Field
+          class="add-impulze-form__period-field"
+          name="seconds"
+          label="Seconds"
+          placeholder="20"
+          v-model="seconds"
+          input-type="number"
+          has-label-in-row
+        />
+      </fieldset>
+      <FieldError :error-message="periodErrorMessage" />
+    </div>
 
     <Button
       @click="callAddImpulzeFunction"
@@ -105,4 +142,20 @@ const callAddImpulzeFunction = () => {
 .add-impulze-form__name-field {
   margin-top: $spacing-4;
 }
+
+.add-impulze-form__period-label {
+  font-weight: bold;
+  margin-bottom: $spacing-2;
+}
+
+.add-impulze-form__period-fieldset {
+  display: flex;
+  width: 100%;
+  gap: $spacing-2;
+}
+
+.add-impulze-form__period-field {
+  flex: 1;
+}
+
 </style>

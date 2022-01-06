@@ -1,7 +1,6 @@
 import { fireEvent, render } from '@testing-library/vue'
 import { flushPromises } from '@vue/test-utils'
 import mockImpulzes from '../mocks/fixtures/impulzes'
-import { convertMillisecondsToSeconds } from '../utils/time'
 import AddImpulzeForm from './AddImpulzeForm.vue'
 
 describe('Add impulze form', () => {
@@ -25,14 +24,17 @@ describe('Add impulze form', () => {
     getByLabelText('Description')
   })
 
-  test('renders the period field', () => {
+  test('renders the period fields', () => {
     const { getByLabelText } = render(AddImpulzeForm, {
       props: {
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         addImpulzeFunction: () => {}
       }
     })
-    getByLabelText('Period')
+
+    getByLabelText(/hours/i)
+    getByLabelText(/minutes/i)
+    getByLabelText(/seconds/i)
   })
 
   test('calls the add impulze function with the correct data', async () => {
@@ -52,9 +54,14 @@ describe('Add impulze form', () => {
     const mockDescription = mockImpulzes[0].description
     await fireEvent.update(descriptionField, mockDescription)
 
-    const periodField = getByLabelText(/period/i)
-    const mockPeriod = convertMillisecondsToSeconds(mockImpulzes[0].period).toString()
-    await fireEvent.update(periodField, mockPeriod)
+    const hoursField = getByLabelText(/hours/i)
+    await fireEvent.update(hoursField, '1')
+
+    const minutesField = getByLabelText(/minutes/i)
+    await fireEvent.update(minutesField, '2')
+
+    const secondsField = getByLabelText(/seconds/i)
+    await fireEvent.update(secondsField, '3')
 
     const addButton = getByText(/add/i)
     await fireEvent.click(addButton)
@@ -79,9 +86,14 @@ describe('Add impulze form', () => {
     const mockDescription = mockImpulzes[0].description
     await fireEvent.update(descriptionField, mockDescription)
 
-    const periodField = getByLabelText(/period/i)
-    const mockPeriod = mockImpulzes[0].period.toString()
-    await fireEvent.update(periodField, mockPeriod)
+    const hoursField = getByLabelText(/hours/i)
+    await fireEvent.update(hoursField, '1')
+
+    const minutesField = getByLabelText(/minutes/i)
+    await fireEvent.update(minutesField, '2')
+
+    const secondsField = getByLabelText(/seconds/i)
+    await fireEvent.update(secondsField, '3')
 
     await flushPromises() // this must be here because vee-validate needs time to validate data
 
@@ -105,9 +117,14 @@ describe('Add impulze form', () => {
     await fireEvent.update(descriptionField, mockDescription)
     await fireEvent.update(descriptionField, '')
 
-    const periodField = getByLabelText(/period/i)
-    const mockPeriod = mockImpulzes[0].period.toString()
-    await fireEvent.update(periodField, mockPeriod)
+    const hoursField = getByLabelText(/hours/i)
+    await fireEvent.update(hoursField, '1')
+
+    const minutesField = getByLabelText(/minutes/i)
+    await fireEvent.update(minutesField, '2')
+
+    const secondsField = getByLabelText(/seconds/i)
+    await fireEvent.update(secondsField, '3')
 
     await flushPromises() // this must be here because vee-validate needs time to validate data
 
@@ -130,13 +147,18 @@ describe('Add impulze form', () => {
     const mockDescription = mockImpulzes[0].description
     await fireEvent.update(descriptionField, mockDescription)
 
-    const periodField = getByLabelText(/period/i)
-    const mockPeriod = mockImpulzes[0].period.toString()
-    await fireEvent.update(periodField, mockPeriod)
-    await fireEvent.update(periodField, '')
+    const hoursField = getByLabelText(/hours/i)
+    await fireEvent.update(hoursField, '1')
+    await fireEvent.update(hoursField, '')
+
+    const minutesField = getByLabelText(/minutes/i)
+    await fireEvent.update(minutesField, '')
+
+    const secondsField = getByLabelText(/seconds/i)
+    await fireEvent.update(secondsField, '')
 
     await flushPromises() // this must be here because vee-validate needs time to validate data
 
-    getByText('This field is required')
+    getByText('The period has to be bigger than 0 seconds')
   })
 })

@@ -34,7 +34,9 @@ describe('Login form', () => {
 
     getByLabelText('Name')
     getByLabelText('Description')
-    getByLabelText('Period')
+    getByLabelText(/hours/i)
+    getByLabelText(/minutes/i)
+    getByLabelText(/seconds/i)
     getByText('Add')
   })
 })

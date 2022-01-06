@@ -41,7 +41,7 @@ const closeModal = () => {
   transform: translate(-50%, -50%);
   width: 600px;
   max-width: 100%;
-  height: 400px;
+  min-height: 400px;
   padding: 10px 20px;
   overflow: auto;
 

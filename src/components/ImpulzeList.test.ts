@@ -1,7 +1,7 @@
 import { render, SelectorMatcherOptions } from '@testing-library/vue'
 import { Matcher } from '@testing-library/dom'
 import { Impulze } from '../types/Impulze'
-import { convertMillisecondsToSeconds } from '../utils/time'
+import { convertMillisecondsToSplitUnits } from '../utils/time'
 import ImpulzeList from './ImpulzeList.vue'
 import { createTestingPinia, TestingPinia } from '@pinia/testing'
 
@@ -30,7 +30,7 @@ const assertImpulzeInfoIsPresent = (
 ) => {
   getByTextSelector(impulzeInfo.name)
   getByTextSelector(impulzeInfo.description)
-  getByTextSelector(`${convertMillisecondsToSeconds(impulzeInfo.period)} s`)
+  getByTextSelector(convertMillisecondsToSplitUnits(impulzeInfo.period))
 }
 
 let testingPinia: TestingPinia

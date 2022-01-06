@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 
+import FieldError from './FieldError.vue'
+
 const emit = defineEmits(['update:modelValue'])
 
 const props = withDefaults(
@@ -38,7 +40,7 @@ watch(inputValue, (newValue) => {
       :id="props.name"
       v-model="inputValue"
     />
-    <span class="field__error">{{ errorMessage }}</span>
+    <FieldError :error-message="errorMessage" />
   </div>
 </template>
 
@@ -50,11 +52,6 @@ watch(inputValue, (newValue) => {
   &:not(:last-child) {
     margin-bottom: $spacing-4;
   }
-}
-
-.field__error {
-  margin-top: $spacing-2;
-  color: $red-600;
 }
 
 input {

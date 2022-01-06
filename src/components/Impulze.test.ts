@@ -4,7 +4,7 @@ import { render } from '@testing-library/vue'
 import { useImpulzeStore } from '../stores/impulze'
 import { ImpulzeResponse } from '../types/Impulze'
 import { impulzesAreEqual } from '../utils/comparison'
-import { convertMillisecondsToSeconds } from '../utils/time'
+import { convertMillisecondsToSplitUnits } from '../utils/time'
 import Impulze from './Impulze.vue'
 
 const dummyImpulze: ImpulzeResponse = {
@@ -35,7 +35,7 @@ describe('Impulze', () => {
 
     getByText(dummyImpulze.name)
     getByText(dummyImpulze.description)
-    getByText(`${convertMillisecondsToSeconds(dummyImpulze.period)} s`)
+    getByText(convertMillisecondsToSplitUnits(dummyImpulze.period))
   })
 
   it('should add the current impulze to the active list in the store when pressing activate', async () => {

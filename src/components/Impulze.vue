@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { defineProps, computed } from 'vue'
+
+import { convertMillisecondsToSplitUnits } from '../utils/time'
 import { useImpulzeStore } from '../stores/impulze'
 import { ImpulzeResponse } from '../types/Impulze'
 import Button from './atoms/Button.vue'
@@ -41,7 +43,7 @@ const deleteImpulze = () => {
         <span>
           Period:
           <span class="impulze-card__period-value">
-            {{ props.impulze.period / 1000 }} s
+            {{ convertMillisecondsToSplitUnits(props.impulze.period) }}
           </span>
         </span>
       </div>
