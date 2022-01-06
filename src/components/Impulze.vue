@@ -31,7 +31,7 @@ const deleteImpulze = () => {
 </script>
 
 <template>
-  <article class="impulze-card">
+  <article class="impulze-card" :class="{ 'impulze-card--is-active': impulzeIsActive }">
     <div class="impulze-card__content">
       <h3 class="impulze-card__title">
         {{ props.impulze.name }}
@@ -77,6 +77,12 @@ const deleteImpulze = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.impulze-card--is-active {
+  border-left: 10px solid greenyellow;
+
+  transition: border-left-width 0.1s ease-in;
 }
 
 .impulze-card__title {
