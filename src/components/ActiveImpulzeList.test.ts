@@ -23,9 +23,9 @@ describe('ActiveImpulzeList', () => {
     testingPinia = createTestingPinia()
   })
 
-  it('should display all provided impulze names in the list', () => {
+  it('should display all provided impulze names in the list', async () => {
     const impulzeStore = useImpulzeStore()
-    impulzeStore.activateImpulzes(impulzeList)
+    await impulzeStore.activateImpulzes(impulzeList)
 
     const { getByText } = render(ActiveImpulzeList, {
       global: {

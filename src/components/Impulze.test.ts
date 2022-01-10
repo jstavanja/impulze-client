@@ -1,6 +1,6 @@
 import { createTestingPinia, TestingPinia } from '@pinia/testing'
 import { fireEvent } from '@testing-library/dom'
-import { render } from '@testing-library/vue'
+import { render, waitFor } from '@testing-library/vue'
 import { useImpulzeStore } from '../stores/impulze'
 import { ImpulzeResponse } from '../types/Impulze'
 import { impulzesAreEqual } from '../utils/comparison'
@@ -59,7 +59,9 @@ describe('Impulze', () => {
     const impulzeWithIntervalId = impulzeStore.activeImpulzes.find(activeImpulze => impulzesAreEqual(activeImpulze.impulze, dummyImpulze))
     expect(impulzeWithIntervalId).toBeDefined()
 
-    getByText(/deactivate/i)
+    await waitFor(() => {
+      getByText(/deactivate/i)
+    })
   })
 
   it('should call the impulze delete function with the correct parameter when pressing remove', async () => {

@@ -71,7 +71,7 @@ describe('ActionBar', () => {
       }
     })
 
-    impulzeStore.activateImpulze(impulzeList[0])
+    await impulzeStore.activateImpulze(impulzeList[0])
 
     const stopAllImpulzesButton = getByText(/stop all impulzes/i)
 

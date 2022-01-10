@@ -20,11 +20,11 @@ describe('Impulze store', () => {
     createTestingPinia()
   })
 
-  it('should activate an impulze without duplicating', () => {
+  it('should activate an impulze without duplicating', async () => {
     const impulzeStore = useImpulzeStore()
 
-    impulzeStore.activateImpulze(dummyImpulzes[0])
-    impulzeStore.activateImpulze(dummyImpulzes[0])
+    await impulzeStore.activateImpulze(dummyImpulzes[0])
+    await impulzeStore.activateImpulze(dummyImpulzes[0])
 
     expect(impulzeStore.activeImpulzes.length).toBe(1)
 
@@ -33,11 +33,11 @@ describe('Impulze store', () => {
     expect(impulzeWithIntervalId).toBeDefined()
   })
 
-  it('should deactivate an impulze', () => {
+  it('should deactivate an impulze', async () => {
     const impulzeStore = useImpulzeStore()
 
-    impulzeStore.activateImpulze(dummyImpulzes[0])
-    impulzeStore.activateImpulze(dummyImpulzes[1])
+    await impulzeStore.activateImpulze(dummyImpulzes[0])
+    await impulzeStore.activateImpulze(dummyImpulzes[1])
     impulzeStore.deactivateImpulze(dummyImpulzes[0])
 
     expect(impulzeStore.activeImpulzes.length).toBe(1)
@@ -45,10 +45,10 @@ describe('Impulze store', () => {
     expect(impulzeWithIntervalId).not.toBeDefined()
   })
 
-  it('should activate all impulzes from array', () => {
+  it('should activate all impulzes from array', async () => {
     const impulzeStore = useImpulzeStore()
 
-    impulzeStore.activateImpulzes(dummyImpulzes)
+    await impulzeStore.activateImpulzes(dummyImpulzes)
 
     expect(impulzeStore.activeImpulzes.length).toBe(dummyImpulzes.length)
 
@@ -59,19 +59,19 @@ describe('Impulze store', () => {
     expect(impulze2WithIntervalId).toBeDefined()
   })
 
-  it('should deactivate all impulzes', () => {
+  it('should deactivate all impulzes', async () => {
     const impulzeStore = useImpulzeStore()
 
-    impulzeStore.activateImpulze(dummyImpulzes[0])
+    await impulzeStore.activateImpulze(dummyImpulzes[0])
     impulzeStore.deactivateAllImpulzes()
 
     expect(impulzeStore.activeImpulzes.length).toBe(0)
   })
 
-  it('should activate all impulzes from array', () => {
+  it('should activate all impulzes from array', async () => {
     const impulzeStore = useImpulzeStore()
 
-    impulzeStore.activateImpulzes(dummyImpulzes)
+    await impulzeStore.activateImpulzes(dummyImpulzes)
 
     expect(impulzeStore.activeImpulzes.length).toBe(dummyImpulzes.length)
 
@@ -82,10 +82,10 @@ describe('Impulze store', () => {
     expect(impulze2WithIntervalId).toBeDefined()
   })
 
-  it('should compute whether an impulze is active', () => {
+  it('should compute whether an impulze is active', async () => {
     const impulzeStore = useImpulzeStore()
 
-    impulzeStore.activateImpulze(dummyImpulzes[0])
+    await impulzeStore.activateImpulze(dummyImpulzes[0])
 
     expect(impulzeStore.impulzeIsActive(dummyImpulzes[0])).toBe(true)
   })

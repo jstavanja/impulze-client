@@ -5,4 +5,5 @@ module.exports = {
     '^.+\\.ts$': 'ts-jest',
     '^.+\\.vue$': 'vue-jest',
   },
+  setupFiles: ['<rootDir>jest-utils-config.ts'],
 }
