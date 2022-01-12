@@ -8,6 +8,7 @@ import ActiveImpulzeList from '../components/ActiveImpulzeList.vue'
 import Header from '../components/Header.vue'
 import ImpulzeModal from '../components/ImpulzeModal.vue'
 import Pill from '../components/atoms/Pill.vue'
+import Loader from '../components/atoms/Loader.vue'
 import API_ROUTES from '../constants/api-routes'
 import axiosFetcher from '../utils/fetchers/axios'
 
@@ -18,21 +19,26 @@ const { data: impulzes } = useSWRV<ImpulzeResponse[]>(
 </script>
 
 <template>
-  <Header />
-  <main class="app-content">
-    <template v-if="impulzes">
-      <ActiveImpulzeList :active-impulzes="impulzes" />
-      <ActionBar :impulzes="impulzes" />
-      <ImpulzeList :impulzes="impulzes" />
-    </template>
-    <div class="no-impulzes" v-else>
-      🙈 <span>No impulzes yet.</span>
-      Create your first impulze using the
-      <Pill variant="secondary">Add an Impulze</Pill>
-      button above.
-    </div>
-  </main>
-  <ImpulzeModal />
+  <div>
+    <Header />
+    <main class="app-content">
+      <template v-if="impulzes">
+        <div class="no-impulzes" v-if="impulzes.length === 0">
+          🙈 <span>No impulzes yet.</span>
+          Create your first impulze using the
+          <Pill variant="secondary">Add an Impulze</Pill>
+          button above.
+        </div>
+        <template v-else>
+          <ActiveImpulzeList :active-impulzes="impulzes" />
+          <ActionBar :impulzes="impulzes" />
+          <ImpulzeList :impulzes="impulzes" />
+        </template>
+      </template>
+      <Loader v-else />
+    </main>
+    <ImpulzeModal />
+  </div>
 </template>
 
 <style lang="scss">
