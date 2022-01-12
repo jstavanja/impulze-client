@@ -21,6 +21,7 @@ const useAuth = () => {
   const logout = () => {
     removeLocalStorageItem(LOCAL_STORAGE_KEYS.JWT_TOKEN)
     mutate(API_ROUTES.USER.INFO, null)
+    mutate(API_ROUTES.IMPULZE.INDEX, null)
   }
 
   return {
