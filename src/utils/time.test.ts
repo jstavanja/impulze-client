@@ -1,4 +1,4 @@
-import { convertMillisecondsToSeconds, convertMillisecondsToSplitUnits, convertSecondsToMilliseconds, convertSplitUnitsToMilliseconds } from './time'
+import { convertMillisecondsToSeconds, convertMillisecondsToSplitUnits, convertMillisecondsToSplitUnitsObject, convertSecondsToMilliseconds, convertSplitUnitsToMilliseconds } from './time'
 describe('Time utilities', () => {
   describe('Milliseconds to seconds converter', () => {
     it('should correctly calculate time in seconds', () => {
@@ -26,6 +26,24 @@ describe('Time utilities', () => {
 
       expect(convertSplitUnitsToMilliseconds(hours, minutes, seconds)).toBe(expectedResult)
     })
+  })
+
+  describe('Milliseconds to multiple units object converter', () => {
+    const hours = 1
+    const minutes = 2
+    const seconds = 3
+
+    const milliseconds = ((hours * 60 * 60) + (minutes * 60) + seconds) * 1000 // 3723
+
+    const {
+      hours: hoursResult,
+      minutes: minutesResult,
+      seconds: secondsResult
+    } = convertMillisecondsToSplitUnitsObject(milliseconds)
+
+    expect(hoursResult).toBe(hours)
+    expect(minutesResult).toBe(minutes)
+    expect(secondsResult).toBe(seconds)
   })
 
   describe('Milliseconds to multiple units converter', () => {

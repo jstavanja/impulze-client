@@ -9,6 +9,7 @@ import Button from './atoms/Button.vue'
 const props = defineProps<{
   impulze: ImpulzeResponse
   deleteImpulzeFunction:(impulzeId: number) => void
+  openEditModalFunction:(impulze: ImpulzeResponse) => void
 }>()
 
 const impulzeStore = useImpulzeStore()
@@ -27,6 +28,10 @@ const deactivateImpulze = () => {
 
 const deleteImpulze = () => {
   props.deleteImpulzeFunction(props.impulze.id)
+}
+
+const openEditModal = () => {
+  props.openEditModalFunction(props.impulze)
 }
 </script>
 
@@ -59,6 +64,9 @@ const deleteImpulze = () => {
       </Button>
       <Button variant="secondary" @click="deactivateImpulze" v-else>
         Deactivate
+      </Button>
+      <Button variant="secondary" size="small" @click="openEditModal">
+        Edit
       </Button>
       <Button variant="alert" size="small" @click="deleteImpulze">
         Remove

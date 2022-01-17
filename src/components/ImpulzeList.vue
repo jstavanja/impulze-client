@@ -3,13 +3,17 @@ import axios from 'axios'
 import { mutate } from 'swrv'
 import { defineProps } from 'vue'
 import API_ROUTES from '../constants/api-routes'
+import { useModalStore } from '../stores/modals'
 import { ImpulzeResponse } from '../types/Impulze'
+import { Modal } from '../types/Modal'
 import axiosFetcher from '../utils/fetchers/axios'
 import ImpulzeComponent from './Impulze.vue'
 
 const props = defineProps<{
   impulzes: ImpulzeResponse[] | undefined
 }>()
+
+const modalStore = useModalStore()
 
 const deleteImpulze = async (impulzeId: number) => {
   try {
@@ -20,6 +24,10 @@ const deleteImpulze = async (impulzeId: number) => {
     alert('Impulze could not be removed.')
   }
 }
+
+const openEditModal = (impulzeWithId: ImpulzeResponse) => {
+  modalStore.openModal(Modal.EditImpulze, impulzeWithId)
+}
 </script>
 
 <template>
@@ -28,6 +36,7 @@ const deleteImpulze = async (impulzeId: number) => {
       <ImpulzeComponent
         :impulze="impulze"
         :delete-impulze-function="deleteImpulze"
+        :open-edit-modal-function="openEditModal"
       />
     </li>
   </ul>
