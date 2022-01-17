@@ -9,8 +9,10 @@ import { mutate } from 'swrv'
 import axiosFetcher from '../utils/fetchers/axios'
 import { useModalStore } from '../stores/modals'
 import { computed } from 'vue'
+import { useImpulzeStore } from '../stores/impulze'
 
 const modalStore = useModalStore()
+const impulzeStore = useImpulzeStore()
 
 interface AddImpulzeResponse extends Impulze {
   active: boolean
@@ -38,6 +40,10 @@ const editImpulze = async (impulze: ImpulzeResponse) => {
     await axios.patch<EditImpulzeResponse>(`${API_ROUTES.IMPULZE.PATCH}/${impulze.id}`, impulze)
 
     mutate(API_ROUTES.IMPULZE.INDEX, axiosFetcher(API_ROUTES.IMPULZE.INDEX)) // TODO: make this not need a request
+
+    if (impulzeStore.impulzeIsActive(impulze)) {
+      alert('Please deactivate and reactivate the impulze to see the new changes in action.')
+    }
 
     modalStore.closeModal(ModalEnum.EditImpulze)
   } catch (err) {

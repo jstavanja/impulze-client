@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { useImpulzeStore } from '../stores/impulze'
-import { Impulze } from '../types/Impulze'
+import { ImpulzeResponse } from '../types/Impulze'
 import Button from './atoms/Button.vue'
 
 const props = defineProps<{
-  impulzes: Impulze[]
+  impulzes: ImpulzeResponse[]
 }>()
 
 const impulzeStore = useImpulzeStore()

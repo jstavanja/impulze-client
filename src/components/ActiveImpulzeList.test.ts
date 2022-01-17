@@ -5,11 +5,13 @@ import ActiveImpulzeList from './ActiveImpulzeList.vue'
 
 const impulzeList = [
   {
+    id: 1,
     name: 'Test impulze #1',
     description: 'This is a testing impulze',
     period: 10000,
   },
   {
+    id: 2,
     name: 'Test impulze #2',
     description: 'This is another testing impulze',
     period: 5000,

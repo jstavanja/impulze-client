@@ -1,40 +1,35 @@
-import { ImpulzeWithInterval } from '../types/Interval'
+import { ImpulzeResponseWithInterval } from '../types/Interval'
 import { activeImpulzeListContainsImpulzes, activeImpulzeListContainsOnlyImpulzes } from './testing'
 
 const impulzeList = [
   {
+    id: 1,
     name: 'Test impulze #1',
     description: 'This is a testing impulze',
     period: 10000,
   },
   {
+    id: 2,
     name: 'Test impulze #2',
     description: 'This is another testing impulze',
     period: 5000,
   },
 ]
 
-const activeImpulzeList: ImpulzeWithInterval[] = [
+const activeImpulzeList: ImpulzeResponseWithInterval[] = [
   {
-    impulze: {
-      name: 'Test impulze #1',
-      description: 'This is a testing impulze',
-      period: 10000,
-    },
+    impulze: impulzeList[0],
     intervalId: 1
   },
   {
-    impulze: {
-      name: 'Test impulze #2',
-      description: 'This is another testing impulze',
-      period: 5000,
-    },
+    impulze: impulzeList[1],
     intervalId: 2
   }
 ]
 
-const anotherImpulzeWithInterval: ImpulzeWithInterval = {
+const anotherImpulzeWithInterval: ImpulzeResponseWithInterval = {
   impulze: {
+    id: 3,
     name: 'Test impulze #3',
     description: 'This is yet another testing impulze',
     period: 70000,
