@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import { Impulze } from '../types/Impulze'
-import { ImpulzeWithInterval } from '../types/Interval'
+import { Impulze, ImpulzeResponse } from '../types/Impulze'
+import { ImpulzeResponseWithInterval } from '../types/Interval'
 import { impulzesAreEqual } from '../utils/comparison'
 
 const requestNativeNotificationPermission = async () => {
@@ -48,27 +48,27 @@ const generateImpulzeInterval = async (impulze: Impulze) => {
 export const useImpulzeStore = defineStore('impulzes', {
   state: () => {
     return {
-      activeImpulzes: [] as ImpulzeWithInterval[],
+      activeImpulzes: [] as ImpulzeResponseWithInterval[],
     }
   },
   getters: {
     impulzeIsActive (state) {
-      return (impulze: Impulze) => {
+      return (impulze: ImpulzeResponse) => {
         return state.activeImpulzes.findIndex(
           activeImpulze => {
-            return impulzesAreEqual(activeImpulze.impulze, impulze)
+            return activeImpulze.impulze.id === impulze.id
           }
         ) > -1
       }
     }
   },
   actions: {
-    async activateImpulze (impulze: Impulze) {
+    async activateImpulze (impulze: ImpulzeResponse) {
       const impulzeAlreadyActive = this.impulzeIsActive(impulze)
       if (!impulzeAlreadyActive) {
         const intervalId = await generateImpulzeInterval(impulze)
         if (intervalId) {
-          const impulzeInterval: ImpulzeWithInterval = {
+          const impulzeInterval: ImpulzeResponseWithInterval = {
             impulze,
             intervalId
           }
@@ -76,8 +76,8 @@ export const useImpulzeStore = defineStore('impulzes', {
         }
       }
     },
-    deactivateImpulze (impulze: Impulze) {
-      const activeImpulzeIndex = this.activeImpulzes.findIndex(activeImpulze => impulzesAreEqual(activeImpulze.impulze, impulze))
+    deactivateImpulze (impulze: ImpulzeResponse) {
+      const activeImpulzeIndex = this.activeImpulzes.findIndex(activeImpulze => activeImpulze.impulze.id === impulze.id)
       const activeImpulze = this.activeImpulzes[activeImpulzeIndex]
 
       if (activeImpulzeIndex > -1) {
@@ -85,7 +85,7 @@ export const useImpulzeStore = defineStore('impulzes', {
         this.activeImpulzes.splice(activeImpulzeIndex, 1)
       }
     },
-    async activateImpulzes (impulzes: Impulze[]) {
+    async activateImpulzes (impulzes: ImpulzeResponse[]) {
       for (const impulze of impulzes) {
         await this.activateImpulze(impulze)
       }

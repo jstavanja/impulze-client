@@ -1,6 +1,6 @@
-import { Impulze } from './Impulze'
+import { ImpulzeResponse } from './Impulze'
 
-export interface ImpulzeWithInterval {
-  impulze: Impulze
+export interface ImpulzeResponseWithInterval {
+  impulze: ImpulzeResponse
   intervalId: number
 }
