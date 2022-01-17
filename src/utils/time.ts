@@ -13,14 +13,28 @@ export const convertSplitUnitsToMilliseconds = (hours: number, minutes: number, 
   return ((hours * MINUTES_IN_HOUR * SECONDS_IN_MINUTE) + (minutes * SECONDS_IN_MINUTE) + seconds) * 1000
 }
 
-export const convertMillisecondsToSplitUnits = (milliseconds: number) => {
+export const convertMillisecondsToSplitUnitsObject = (milliseconds: number) => {
   const date = new Date(milliseconds)
-
-  let str = ''
 
   const utcHours = date.getUTCHours()
   const utcMinutes = date.getUTCMinutes()
   const utcSeconds = date.getUTCSeconds()
+
+  return {
+    hours: utcHours,
+    minutes: utcMinutes,
+    seconds: utcSeconds,
+  }
+}
+
+export const convertMillisecondsToSplitUnits = (milliseconds: number) => {
+  const {
+    hours: utcHours,
+    minutes: utcMinutes,
+    seconds: utcSeconds
+  } = convertMillisecondsToSplitUnitsObject(milliseconds)
+
+  let str = ''
 
   if (utcHours !== 0) {
     if (utcHours === 1) {

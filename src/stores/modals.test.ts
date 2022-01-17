@@ -7,12 +7,20 @@ describe('Modal store', () => {
     createTestingPinia()
   })
 
+  it('should know whether a modal is open', () => {
+    const modalStore = useModalStore()
+
+    modalStore.openModal(Modal.AddImpulze)
+
+    expect(modalStore.modalIsOpen(Modal.AddImpulze)).toBe(true)
+  })
+
   it('should open a modal', () => {
     const modalStore = useModalStore()
 
     modalStore.openModal(Modal.AddImpulze)
 
-    expect(modalStore.openModals.includes(Modal.AddImpulze)).toBe(true)
+    expect(modalStore.modalIsOpen(Modal.AddImpulze)).toBe(true)
   })
 
   it('should close a modal', () => {
@@ -22,14 +30,15 @@ describe('Modal store', () => {
     modalStore.closeModal(Modal.AddImpulze)
 
     expect(modalStore.openModals.length).toBe(0)
-    expect(modalStore.openModals.includes(Modal.AddImpulze)).toBe(false)
+    expect(modalStore.modalIsOpen(Modal.AddImpulze)).toBe(false)
   })
 
-  it('should know whether a modal is open', () => {
+  it('should retrieve a modal\'s payload', () => {
     const modalStore = useModalStore()
+    const modalPayload = { name: 'test' }
 
-    modalStore.openModal(Modal.AddImpulze)
+    modalStore.openModal(Modal.EditImpulze, modalPayload)
 
-    expect(modalStore.modalIsOpen(Modal.AddImpulze)).toBe(true)
+    expect(modalStore.getModalPayload(Modal.EditImpulze)).toStrictEqual(modalPayload)
   })
 })

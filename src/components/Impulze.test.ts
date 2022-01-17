@@ -29,7 +29,9 @@ describe('Impulze', () => {
       props: {
         impulze: dummyImpulze,
         // eslint-disable-next-line @typescript-eslint/no-empty-function
-        deleteImpulzeFunction: () => {}
+        deleteImpulzeFunction: () => {},
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        openEditModalFunction: () => {}
       },
     })
 
@@ -48,7 +50,9 @@ describe('Impulze', () => {
       props: {
         impulze: dummyImpulze,
         // eslint-disable-next-line @typescript-eslint/no-empty-function
-        deleteImpulzeFunction: () => {}
+        deleteImpulzeFunction: () => {},
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        openEditModalFunction: () => {}
       },
     })
 
@@ -73,7 +77,9 @@ describe('Impulze', () => {
       },
       props: {
         impulze: dummyImpulze,
-        deleteImpulzeFunction
+        deleteImpulzeFunction,
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        openEditModalFunction: () => {}
       },
     })
 
@@ -82,5 +88,27 @@ describe('Impulze', () => {
     await fireEvent.click(removeButton)
 
     expect(deleteImpulzeFunction).toBeCalledWith(dummyImpulze.id)
+  })
+
+  it('should open the edit impulze modal when pressing edit', async () => {
+    const openEditModalFunction = jest.fn()
+
+    const { getByText } = render(Impulze, {
+      global: {
+        plugins: [testingPinia],
+      },
+      props: {
+        impulze: dummyImpulze,
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        deleteImpulzeFunction: () => {},
+        openEditModalFunction
+      },
+    })
+
+    const editButton = getByText(/edit/i)
+
+    await fireEvent.click(editButton)
+
+    expect(openEditModalFunction).toBeCalledWith(dummyImpulze)
   })
 })

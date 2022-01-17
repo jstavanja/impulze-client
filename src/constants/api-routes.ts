@@ -7,6 +7,7 @@ const API_ROUTES = {
   IMPULZE: {
     INDEX: '/impulze',
     STORE: '/impulze',
+    PATCH: '/impulze',
     REMOVE: '/impulze'
   }
 }
