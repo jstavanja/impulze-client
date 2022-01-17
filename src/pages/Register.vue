@@ -34,7 +34,7 @@ const register = async (
 
 <template>
   <AuthLayout>
-    <h2 class="register-page__title">Create an account on ⚡️ Impulze</h2>
+    <h2 class="register-page__title">Create an account on ⚡️ Pulses</h2>
     <RegistrationForm :register-function="register" />
     <Link to="/login" class="register-page__register-link">
       Already have an account? Log in here.

@@ -1,5 +1,5 @@
 {
-  "name": "impulze-vue3",
+  "name": "pulses-vue3",
   "version": "0.0.0",
   "scripts": {
     "serve": "vite preview",

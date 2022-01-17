@@ -3,6 +3,7 @@ import handlers from '../../mocks/handlers'
 import mockUserInfo from '../../mocks/fixtures/user-info'
 import userFetcher from './user'
 import API_ROUTES from '../../constants/api-routes'
+import LOCAL_STORAGE_KEYS from '../../constants/local-storage-keys'
 
 const server = setupServer(...handlers)
 
@@ -16,11 +17,11 @@ describe('User fetcher', () => {
   })
 
   afterEach(() => {
-    localStorage.removeItem('impulze_token')
+    localStorage.removeItem(LOCAL_STORAGE_KEYS.JWT_TOKEN)
   })
 
   it('should fetch the user from the api', async () => {
-    localStorage.setItem('impulze_token', '"jwt"')
+    localStorage.setItem(LOCAL_STORAGE_KEYS.JWT_TOKEN, '"jwt"')
     const userInfo = await userFetcher(API_ROUTES.USER.INFO)
     expect(userInfo).toStrictEqual(mockUserInfo)
   })

@@ -38,7 +38,7 @@ describe('Login form', () => {
 
     const emailField = getByLabelText('E-mail')
 
-    const mockEmail = 'john.doe@impulze.io'
+    const mockEmail = 'john.doe@pulses.io'
     await fireEvent.update(emailField, mockEmail)
 
     const passwordField = getByLabelText('Password')
@@ -131,7 +131,7 @@ describe('Login form', () => {
 
     const emailField = getByLabelText('E-mail')
 
-    const mockEmail = 'john.doe@impulze.io'
+    const mockEmail = 'john.doe@pulses.io'
     await fireEvent.update(emailField, mockEmail)
 
     const passwordField = getByLabelText('Password')

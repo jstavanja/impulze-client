@@ -1,4 +1,4 @@
-# ⚡️ Impulze
+# ⚡️ Pulses
 
 <p align="center">
 <img src="docs/app_logo.jpg" width=400>
@@ -8,7 +8,7 @@ Get reminded on a periodic basis!
 
 ## Repository description
 
-This repository houses the front-end client for the Impulze reminder application.
+This repository houses the front-end client for the Pulses reminder application.
 
 ![Image of the application's home page](docs/app_preview.png)
 

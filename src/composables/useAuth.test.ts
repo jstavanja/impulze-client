@@ -4,10 +4,11 @@ import mockUserInfo from '../mocks/fixtures/user-info'
 import useAuth from './useAuth'
 import { mount } from 'vue-composable-tester'
 import { waitFor } from '@testing-library/vue'
+import LOCAL_STORAGE_KEYS from '../constants/local-storage-keys'
 
 const server = setupServer(...handlers)
 
-localStorage.setItem('impulze_token', '"jwt"')
+localStorage.setItem(LOCAL_STORAGE_KEYS.JWT_TOKEN, '"jwt"')
 
 describe('useAuth composable', () => {
   beforeAll(() => {

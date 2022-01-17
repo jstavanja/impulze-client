@@ -22,7 +22,7 @@ describe('Login page', () => {
       }
     })
 
-    getByText('Log in to ⚡️ Impulze')
+    getByText('Log in to ⚡️ Pulses')
   })
 
   it('should display the login form', async () => {

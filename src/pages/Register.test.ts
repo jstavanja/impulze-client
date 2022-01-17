@@ -22,7 +22,7 @@ describe('Register page', () => {
       }
     })
 
-    getByText('Create an account on ⚡️ Impulze')
+    getByText('Create an account on ⚡️ Pulses')
   })
 
   it('should display the registration form', async () => {

@@ -25,7 +25,7 @@ const openAddImpulzeModal = () => {
   <header>
     <div class="header__wrapper">
       <div class="header__brand">
-        <span class="header__brand-name">Impulze</span>
+        <span class="header__brand-name">Pulses</span>
 
         <Button @click="openAddImpulzeModal">Add an Impulze</Button>
       </div>

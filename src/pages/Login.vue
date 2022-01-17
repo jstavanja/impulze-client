@@ -6,6 +6,7 @@ import AuthLayout from '../layouts/Auth.vue'
 import { router } from '../routes'
 import { setLocalStorageItem } from '../utils/local-storage'
 import Link from '../components/atoms/Link.vue'
+import LOCAL_STORAGE_KEYS from '../constants/local-storage-keys'
 
 interface LoginResponse {
   token: string
@@ -20,7 +21,7 @@ const login = async (email: string, password: string) => {
         password,
       }
     )
-    setLocalStorageItem('impulze_token', loginResponse.data.token)
+    setLocalStorageItem(LOCAL_STORAGE_KEYS.JWT_TOKEN, loginResponse.data.token)
     router.push('/')
   } catch (err) {
     // TODO: add toast
@@ -31,7 +32,7 @@ const login = async (email: string, password: string) => {
 
 <template>
   <AuthLayout>
-    <h2 class="login-page__title">Log in to ⚡️ Impulze</h2>
+    <h2 class="login-page__title">Log in to ⚡️ Pulses</h2>
     <LoginForm :login-function="login" />
     <Link to="/register" class="login-page__register-link">
       Don't have an account yet? Register here.

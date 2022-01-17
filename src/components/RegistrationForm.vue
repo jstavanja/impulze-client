@@ -79,7 +79,7 @@ const callRegisterFunction = () => {
     <Field
       label="E-mail"
       name="email"
-      placeholder="john.doe@impulze.io"
+      placeholder="john.doe@pulses.io"
       class="login-form__email-field"
       v-model="email"
       :error-message="emailErrorMessage"
