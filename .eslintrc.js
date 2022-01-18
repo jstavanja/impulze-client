@@ -22,10 +22,10 @@ module.exports = {
     'comma-dangle': 'off',
     '@typescript-eslint/no-loss-of-precision': 'off',
     'vue/max-attributes-per-line': [2, {
-      'singleline': 20,
-      'multiline': {
-        'max': 1,
-        'allowFirstLine': false
+      singleline: 20,
+      multiline: {
+        max: 1,
+        allowFirstLine: false
       }
     }],
     'vue/singleline-html-element-content-newline': 'off',
@@ -45,8 +45,8 @@ module.exports = {
   ],
 
   globals: {
-    defineProps: "readonly",
-    withDefaults: "readonly",
-    defineEmits: "readonly",
+    defineProps: 'readonly',
+    withDefaults: 'readonly',
+    defineEmits: 'readonly',
   }
-};
+}

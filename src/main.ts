@@ -3,6 +3,7 @@ import { router } from './routes'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import initializeAxiosInterceptors from './utils/initialize-axios-interceptors'
+import './registerServiceWorker'
 
 initializeAxiosInterceptors()
 
