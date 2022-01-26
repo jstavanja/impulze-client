@@ -1,7 +1,9 @@
 import { defineStore } from 'pinia'
 import { Impulze, ImpulzeResponse } from '../types/Impulze'
-import { ImpulzeResponseWithInterval } from '../types/Interval'
-import { impulzesAreEqual } from '../utils/comparison'
+import { ImpulzeResponseWithMetadata } from '../types/Interval'
+import { ref } from 'vue'
+
+const IMPULZE_TIME_CHECK_RESOLUTION_IN_MS = 500
 
 const requestNativeNotificationPermission = async () => {
   try {
@@ -27,7 +29,11 @@ const triggerNativeNotification = async (title: string, body: string) => {
   })
 }
 
-const generateImpulzeInterval = async (impulze: Impulze) => {
+const floorMillisecondsToNearestSecond = (milliseconds: number) => {
+  return Math.floor(milliseconds / 1000) * 1000
+}
+
+const generateImpulzeAndReturnMetadata = async (impulze: Impulze) => {
   let canActivateImpulze = Notification.permission === 'granted'
 
   // upon first impulze activation, ask for permission
@@ -37,9 +43,25 @@ const generateImpulzeInterval = async (impulze: Impulze) => {
 
   // if the permission was given, trigger the notification
   if (canActivateImpulze) {
-    return window.setInterval(() => {
-      triggerNativeNotification(impulze.name, impulze.description)
-    }, impulze.period)
+    const msRemainingUntilNotificationTriggers = ref(impulze.period)
+    let remainingDuration = impulze.period
+
+    const intervalId = window.setInterval(() => {
+      msRemainingUntilNotificationTriggers.value = floorMillisecondsToNearestSecond(remainingDuration)
+
+      if (remainingDuration === 0) {
+        remainingDuration = impulze.period
+
+        triggerNativeNotification(impulze.name, impulze.description)
+      } else {
+        remainingDuration -= IMPULZE_TIME_CHECK_RESOLUTION_IN_MS
+      }
+    }, IMPULZE_TIME_CHECK_RESOLUTION_IN_MS)
+
+    return {
+      intervalId,
+      msRemainingUntilNotificationTriggers
+    }
   }
 
   return null
@@ -48,7 +70,7 @@ const generateImpulzeInterval = async (impulze: Impulze) => {
 export const useImpulzeStore = defineStore('impulzes', {
   state: () => {
     return {
-      activeImpulzes: [] as ImpulzeResponseWithInterval[],
+      activeImpulzes: [] as ImpulzeResponseWithMetadata[],
     }
   },
   getters: {
@@ -60,17 +82,28 @@ export const useImpulzeStore = defineStore('impulzes', {
           }
         ) > -1
       }
+    },
+    getMsUntilImpulzeIsTriggered (state) {
+      return (impulze: ImpulzeResponse) => {
+        const foundImpulze = state.activeImpulzes.find(
+          activeImpulze => {
+            return activeImpulze.impulze.id === impulze.id
+          }
+        )
+
+        return foundImpulze?.metadata.msRemainingUntilNotificationTriggers || -1
+      }
     }
   },
   actions: {
     async activateImpulze (impulze: ImpulzeResponse) {
       const impulzeAlreadyActive = this.impulzeIsActive(impulze)
       if (!impulzeAlreadyActive) {
-        const intervalId = await generateImpulzeInterval(impulze)
-        if (intervalId) {
-          const impulzeInterval: ImpulzeResponseWithInterval = {
+        const metadata = await generateImpulzeAndReturnMetadata(impulze)
+        if (metadata?.intervalId) {
+          const impulzeInterval: ImpulzeResponseWithMetadata = {
             impulze,
-            intervalId
+            metadata
           }
           this.activeImpulzes.push(impulzeInterval)
         }
@@ -81,7 +114,7 @@ export const useImpulzeStore = defineStore('impulzes', {
       const activeImpulze = this.activeImpulzes[activeImpulzeIndex]
 
       if (activeImpulzeIndex > -1) {
-        clearInterval(activeImpulze.intervalId)
+        clearInterval(activeImpulze.metadata.intervalId)
         this.activeImpulzes.splice(activeImpulzeIndex, 1)
       }
     },
