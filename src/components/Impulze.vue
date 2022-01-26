@@ -18,6 +18,10 @@ const impulzeIsActive = computed(() =>
   impulzeStore.impulzeIsActive(props.impulze)
 )
 
+const msUntilImpulzeFires = computed(() =>
+  impulzeStore.getMsUntilImpulzeIsTriggered(props.impulze)
+)
+
 const activateImpulze = () => {
   impulzeStore.activateImpulze(props.impulze)
 }
@@ -45,10 +49,16 @@ const openEditModal = () => {
         {{ props.impulze.description }}
       </p>
       <div>
-        <span>
+        <span v-if="!impulzeIsActive">
           Period:
           <span class="impulze-card__period-value">
             {{ convertMillisecondsToSplitUnits(props.impulze.period) }}
+          </span>
+        </span>
+        <span v-else>
+          Time until next notification:
+          <span class="impulze-card__period-value">
+            {{ convertMillisecondsToSplitUnits(msUntilImpulzeFires) }}
           </span>
         </span>
       </div>
