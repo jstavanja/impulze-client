@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
-import { Impulze, ImpulzeResponse } from '../types/Impulze'
+import { ImpulzeResponse } from '../types/Impulze'
 import { ImpulzeResponseWithMetadata } from '../types/Interval'
-import { ref } from 'vue'
 
 const IMPULZE_TIME_CHECK_RESOLUTION_IN_MS = 500
 
@@ -33,7 +32,31 @@ const floorMillisecondsToNearestSecond = (milliseconds: number) => {
   return Math.floor(milliseconds / 1000) * 1000
 }
 
-const generateImpulzeAndReturnMetadata = async (impulze: Impulze) => {
+const updateMsRemainingInStoreForImpulze = (impulze: ImpulzeResponse, msRemaining: number) => {
+  const impulzeStore = useImpulzeStore()
+  impulzeStore.updateMsRemainingForImpulze(impulze, msRemaining)
+}
+
+const startNotificationsAndMetadataComputations = (impulze: ImpulzeResponse) => {
+  let msRemainingUntilNotificationTriggers = impulze.period
+  let remainingDuration = impulze.period
+
+  return window.setInterval(() => {
+    msRemainingUntilNotificationTriggers = floorMillisecondsToNearestSecond(remainingDuration)
+
+    if (remainingDuration <= IMPULZE_TIME_CHECK_RESOLUTION_IN_MS) {
+      remainingDuration = impulze.period
+
+      triggerNativeNotification(impulze.name, impulze.description)
+    } else {
+      remainingDuration -= IMPULZE_TIME_CHECK_RESOLUTION_IN_MS
+    }
+
+    updateMsRemainingInStoreForImpulze(impulze, msRemainingUntilNotificationTriggers)
+  }, IMPULZE_TIME_CHECK_RESOLUTION_IN_MS)
+}
+
+const generateImpulzeAndReturnMetadata = async (impulze: ImpulzeResponse) => {
   let canActivateImpulze = Notification.permission === 'granted'
 
   // upon first impulze activation, ask for permission
@@ -43,24 +66,11 @@ const generateImpulzeAndReturnMetadata = async (impulze: Impulze) => {
 
   // if the permission was given, trigger the notification
   if (canActivateImpulze) {
-    const msRemainingUntilNotificationTriggers = ref(impulze.period)
-    let remainingDuration = impulze.period
-
-    const intervalId = window.setInterval(() => {
-      msRemainingUntilNotificationTriggers.value = floorMillisecondsToNearestSecond(remainingDuration)
-
-      if (remainingDuration === 0) {
-        remainingDuration = impulze.period
-
-        triggerNativeNotification(impulze.name, impulze.description)
-      } else {
-        remainingDuration -= IMPULZE_TIME_CHECK_RESOLUTION_IN_MS
-      }
-    }, IMPULZE_TIME_CHECK_RESOLUTION_IN_MS)
+    const intervalId = startNotificationsAndMetadataComputations(impulze)
 
     return {
       intervalId,
-      msRemainingUntilNotificationTriggers
+      msRemainingUntilNotificationTriggers: impulze.period,
     }
   }
 
@@ -129,5 +139,13 @@ export const useImpulzeStore = defineStore('impulzes', {
         this.deactivateImpulze(activeImpulze.impulze)
       })
     },
+    updateMsRemainingForImpulze (impulze: ImpulzeResponse, msRemaining: number) {
+      const impulzeToUpdate = this.activeImpulzes.find((activeImpulze) => activeImpulze.impulze.id === impulze.id)
+      if (!impulzeToUpdate) {
+        console.info('Could not find the impulze to update the ms remaining for.')
+        return
+      }
+      impulzeToUpdate.metadata.msRemainingUntilNotificationTriggers = msRemaining
+    }
   },
 })
