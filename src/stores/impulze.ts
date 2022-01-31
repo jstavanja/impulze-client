@@ -3,6 +3,7 @@ import { ImpulzeResponse } from '../types/Impulze'
 import { ImpulzeResponseWithMetadata } from '../types/Interval'
 
 const IMPULZE_TIME_CHECK_RESOLUTION_IN_MS = 500
+const FRACTION_1MS_FOR_MORE_LOGICAL_DISPLAY = 1
 
 const requestNativeNotificationPermission = async () => {
   try {
@@ -42,7 +43,7 @@ const generateNotificationAndMetadataComputationsInterval = (impulze: ImpulzeRes
   let remainingDuration = impulze.period
 
   return window.setInterval(() => {
-    msRemainingUntilNotificationTriggers = floorMillisecondsToNearestSecond(remainingDuration)
+    msRemainingUntilNotificationTriggers = floorMillisecondsToNearestSecond(remainingDuration - FRACTION_1MS_FOR_MORE_LOGICAL_DISPLAY)
 
     if (remainingDuration <= IMPULZE_TIME_CHECK_RESOLUTION_IN_MS) {
       remainingDuration = impulze.period
