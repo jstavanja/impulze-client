@@ -37,7 +37,7 @@ const updateMsRemainingInStoreForImpulze = (impulze: ImpulzeResponse, msRemainin
   impulzeStore.updateMsRemainingForImpulze(impulze, msRemaining)
 }
 
-const startNotificationsAndMetadataComputations = (impulze: ImpulzeResponse) => {
+const generateNotificationAndMetadataComputationsInterval = (impulze: ImpulzeResponse) => {
   let msRemainingUntilNotificationTriggers = impulze.period
   let remainingDuration = impulze.period
 
@@ -66,7 +66,7 @@ const generateImpulzeAndReturnMetadata = async (impulze: ImpulzeResponse) => {
 
   // if the permission was given, trigger the notification
   if (canActivateImpulze) {
-    const intervalId = startNotificationsAndMetadataComputations(impulze)
+    const intervalId = generateNotificationAndMetadataComputationsInterval(impulze)
 
     return {
       intervalId,
@@ -101,7 +101,7 @@ export const useImpulzeStore = defineStore('impulzes', {
           }
         )
 
-        return foundImpulze?.metadata.msRemainingUntilNotificationTriggers || -1
+        return foundImpulze?.metadata.msRemainingUntilNotificationTriggers || 0
       }
     }
   },
