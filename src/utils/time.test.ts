@@ -103,5 +103,9 @@ describe('Time utilities', () => {
 
       expect(convertMillisecondsToSplitUnits(milliseconds)).toBe(`${hours} hour, ${seconds} seconds`)
     })
+
+    it('should correctly display 0', () => {
+      expect(convertMillisecondsToSplitUnits(0)).toBe('0')
+    })
   })
 })

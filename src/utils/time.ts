@@ -34,6 +34,8 @@ export const convertMillisecondsToSplitUnits = (milliseconds: number) => {
     seconds: utcSeconds
   } = convertMillisecondsToSplitUnitsObject(milliseconds)
 
+  if (utcHours + utcMinutes + utcSeconds === 0) return '0'
+
   let str = ''
 
   if (utcHours !== 0) {
