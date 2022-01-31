@@ -1,9 +1,8 @@
-import { Ref } from 'vue'
 import { ImpulzeResponse } from './Impulze'
 
 interface ImpulzeMetadata {
   intervalId: number
-  msRemainingUntilNotificationTriggers: Ref<number>
+  msRemainingUntilNotificationTriggers: number
 }
 
 export interface ImpulzeResponseWithMetadata {
