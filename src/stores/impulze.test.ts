@@ -22,6 +22,10 @@ describe('Impulze store', () => {
     createTestingPinia()
   })
 
+  afterEach(() => {
+    jest.useRealTimers()
+  })
+
   it('should activate an impulze without duplicating', async () => {
     const impulzeStore = useImpulzeStore()
 
@@ -90,5 +94,21 @@ describe('Impulze store', () => {
     await impulzeStore.activateImpulze(dummyImpulzes[0])
 
     expect(impulzeStore.impulzeIsActive(dummyImpulzes[0])).toBe(true)
+  })
+
+  it('should correctly compute the time remaining for an impulze at the beginning', async () => {
+    const impulzeStore = useImpulzeStore()
+
+    await impulzeStore.activateImpulze(dummyImpulzes[0])
+
+    expect(impulzeStore.getMsUntilImpulzeIsTriggered(dummyImpulzes[0])).toBe(dummyImpulzes[0].period)
+  })
+
+  it('should correctly compute the time remaining for an impulze after some time', async () => {
+    jest.useFakeTimers()
+    const impulzeStore = useImpulzeStore()
+    await impulzeStore.activateImpulze(dummyImpulzes[0])
+    jest.advanceTimersByTime(1001)
+    expect(impulzeStore.getMsUntilImpulzeIsTriggered(dummyImpulzes[0])).toBe(dummyImpulzes[0].period - 1000)
   })
 })
